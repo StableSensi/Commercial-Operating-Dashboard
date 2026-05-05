@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aryze Commercial Workspace</title>
+    <meta
+      name="description"
+      content="Internal Aryze workspace for commercial plans, reports, priorities and operating processes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <a class="brand" href="#dashboard" aria-label="Aryze Commercial Workspace">
+          <img class="brand-logo" src="./assets/aryze-logo-wordmark.png" alt="Aryze" />
+          <span>
+            <small>Commercial Workspace</small>
+          </span>
+        </a>
+
+        <nav class="side-nav">
+          <a href="#dashboard" class="is-active">Dashboard</a>
+          <button class="admin-button" id="adminOpenButton" type="button">Admin</button>
+        </nav>
+      </aside>
+
+      <main>
+        <section class="hero" id="dashboard">
+          <div class="hero-copy">
+            <p class="eyebrow">Sales · Marketing · Execution</p>
+            <h1>Aryze Commercial Workspace</h1>
+            <p>
+              One place to review commercial plans, reports and operating
+              processes with clear ownership and next actions.
+            </p>
+          </div>
+
+          <aside class="snapshot-card" aria-label="Dashboard overview">
+            <div class="snapshot-head">
+              <span>Overview</span>
+              <strong>Commercial pulse</strong>
+            </div>
+            <div class="snapshot-grid">
+              <article>
+                <span>Pay by Bank pipeline</span>
+                <strong id="snapshotPayBankLeads">0</strong>
+                <small>April lead base</small>
+              </article>
+              <article>
+                <span>Stablecoin pipeline</span>
+                <strong id="snapshotStablecoinOpportunities">0</strong>
+                <small>April lead and opportunity base</small>
+              </article>
+              <article>
+                <span>Upcoming events</span>
+                <strong id="snapshotEvents">0</strong>
+                <small>conference pipeline</small>
+              </article>
+            </div>
+          </aside>
+        </section>
+
+        <section class="toolbar" aria-label="Search and filter">
+          <label class="search-box">
+            <span>Search</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search workspace"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="filter-group" aria-label="Filter by type">
+            <button class="filter-button is-active" type="button" data-filter="all">All</button>
+            <button class="filter-button" type="button" data-filter="plan">Plans</button>
+            <button class="filter-button" type="button" data-filter="strategy">Strategy</button>
+            <button class="filter-button" type="button" data-filter="report">Reports</button>
+            <button class="filter-button" type="button" data-filter="process">Processes</button>
+          </div>
+
+          <output class="result-count" id="resultCount" aria-live="polite">7 shown</output>
+        </section>
+
+        <section class="workspace-section" id="library">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Library</p>
+              <h2>Commercial workspace</h2>
+            </div>
+          </div>
+
+          <div class="workspace-groups" id="workspaceGrid">
+            <section class="workspace-group" data-group>
+              <div class="workspace-group-head">
+                <h3>Plans</h3>
+                <span>4</span>
+              </div>
+              <div class="workspace-grid">
+                <article
+                  class="workspace-card"
+                  data-id="sales-strategy"
+                  data-category="plan strategy"
+                  data-title="sales strategy commercial operating model qualification ownership progression"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Updated</span>
+                    <span>Plan · Strategy</span>
+                  </div>
+                  <h3>Sales Strategy</h3>
+                  <p>How Aryze sells: channels, qualification, product motions and pipeline ownership.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Commercial leadership</dd></div>
+                    <div><dt>Current focus</dt><dd>Sales operating model</dd></div>
+                    <div><dt>Next action</dt><dd>Align execution</dd></div>
+                    <div><dt>Updated</dt><dd>May 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/sales-strategy.html">Open</a>
+                  </div>
+                </article>
+
+                <article
+                  class="workspace-card"
+                  data-id="pay-by-bank-marketing"
+                  data-category="plan"
+                  data-title="pay by bank marketing plan campaign lead generation linkedin brevo seo"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Ready</span>
+                    <span>Marketing plan</span>
+                  </div>
+                  <h3>Pay by Bank Marketing Plan</h3>
+                  <p>Demand plan for educating high-fit merchants and supporting Pay by Bank conversion.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Marketing</dd></div>
+                    <div><dt>Current focus</dt><dd>Demand creation</dd></div>
+                    <div><dt>Next action</dt><dd>Launch campaign</dd></div>
+                    <div><dt>Updated</dt><dd>May 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/pay-by-bank-marketing-plan.html">Open</a>
+                  </div>
+                </article>
+
+                <article
+                  class="workspace-card"
+                  data-id="nbc-stockholm-event"
+                  data-category="plan"
+                  data-title="nbc stockholm event marketing plan booth lead capture mini golf brevo"
+                  data-event="1"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Ready</span>
+                    <span>Event plan</span>
+                  </div>
+                  <h3>NBC Stockholm Event Plan</h3>
+                  <p>Event plan for qualified conversations, lead capture and post-conference follow-up.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Sales · Marketing</dd></div>
+                    <div><dt>Current focus</dt><dd>Event execution</dd></div>
+                    <div><dt>Next action</dt><dd>Prepare follow-up</dd></div>
+                    <div><dt>Updated</dt><dd>May 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/nbc-stockholm-marketing-plan.html">Open</a>
+                  </div>
+                </article>
+
+                <article
+                  class="workspace-card"
+                  data-id="maryland-conference"
+                  data-category="plan"
+                  data-title="maryland conference event plan draft sales marketing conference"
+                  data-event="1"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Draft</span>
+                    <span>Event plan</span>
+                  </div>
+                  <h3>Maryland Conference</h3>
+                  <p>Draft event plan for objective, audience focus and follow-up model.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Sales · Marketing</dd></div>
+                    <div><dt>Current focus</dt><dd>Plan definition</dd></div>
+                    <div><dt>Next action</dt><dd>Confirm scope</dd></div>
+                    <div><dt>Updated</dt><dd>Draft</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <span class="button secondary is-disabled" aria-disabled="true">Not ready</span>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="workspace-group" data-group>
+              <div class="workspace-group-head">
+                <h3>Reports</h3>
+                <span>2</span>
+              </div>
+              <div class="workspace-grid compact-grid">
+                <article
+                  class="workspace-card"
+                  data-id="april-sales-report"
+                  data-category="report"
+                  data-title="april sales report pay by bank stablecoin pipeline commercial report"
+                  data-pay-bank-leads="19"
+                  data-stablecoin-opportunities="12"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Ready</span>
+                    <span>Report</span>
+                  </div>
+                  <h3>April Sales Report</h3>
+                  <p>April readout covering pipeline status, activity sources, product signals and month-end learnings.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Sales</dd></div>
+                    <div><dt>Current focus</dt><dd>Pipeline reporting</dd></div>
+                    <div><dt>Next action</dt><dd>Use as April baseline</dd></div>
+                    <div><dt>Updated</dt><dd>April 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/april-sales-report.html">Open</a>
+                  </div>
+                </article>
+
+                <article
+                  class="workspace-card"
+                  data-id="sbc-summit-report"
+                  data-category="report"
+                  data-title="sbc summit report market access pipeline commercial leverage"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Ready</span>
+                    <span>Report</span>
+                  </div>
+                  <h3>SBC Summit Report</h3>
+                  <p>SBC readout covering market signals, relationships and follow-up opportunities.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Sales</dd></div>
+                    <div><dt>Current focus</dt><dd>Lead follow-up</dd></div>
+                    <div><dt>Next action</dt><dd>Prioritise contacts</dd></div>
+                    <div><dt>Updated</dt><dd>May 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/sbc-report/index.html">Open</a>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="workspace-group" data-group>
+              <div class="workspace-group-head">
+                <h3>Processes</h3>
+                <span>1</span>
+              </div>
+              <div class="workspace-grid compact-grid">
+                <article
+                  class="workspace-card"
+                  data-id="sales-onboarding-process"
+                  data-category="process"
+                  data-title="sales onboarding process operating model handoff readiness"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Ready</span>
+                    <span>Process</span>
+                  </div>
+                  <h3>Sales-to-Onboarding Process</h3>
+                  <p>Readiness process for moving qualified customers into controlled onboarding.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Sales · Operations</dd></div>
+                    <div><dt>Current focus</dt><dd>Handoff control</dd></div>
+                    <div><dt>Next action</dt><dd>Use readiness gates</dd></div>
+                    <div><dt>Updated</dt><dd>May 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/sales-onboarding.html">Open</a>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+
+          <p class="empty-state" id="emptyState" hidden>No matching items.</p>
+        </section>
+      </main>
+    </div>
+
+    <div class="admin-backdrop" id="adminBackdrop" hidden></div>
+
+    <section class="admin-modal" id="adminModal" aria-labelledby="adminTitle" hidden>
+      <div class="admin-modal-head">
+        <div>
+          <p class="eyebrow">Admin access</p>
+          <h2 id="adminTitle">Unlock dashboard editing</h2>
+        </div>
+        <button class="icon-button" id="adminCloseButton" type="button" aria-label="Close admin login">×</button>
+      </div>
+      <form class="admin-form" id="adminLoginForm">
+        <label>
+          <span>Email</span>
+          <input id="adminEmail" type="email" autocomplete="username" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="adminPassword" type="password" autocomplete="current-password" required />
+        </label>
+        <p class="admin-message" id="adminMessage" aria-live="polite"></p>
+        <button class="button primary" type="submit">Unlock admin mode</button>
+      </form>
+    </section>
+
+    <section class="admin-panel" id="adminPanel" hidden>
+      <div>
+        <strong>Admin mode</strong>
+        <span>Changes are saved in this browser.</span>
+      </div>
+      <button class="button secondary" id="adminLogoutButton" type="button">Log out</button>
+    </section>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
