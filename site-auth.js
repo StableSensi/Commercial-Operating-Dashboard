@@ -1,0 +1,173 @@
+(() => {
+  const ACCESS_KEY = "aryzeWorkspaceAccessGranted";
+  const SALT = "aryze-commercial-workspace-access-v1";
+  const ACCESS_HASH = "35c0c1c39fe56ca734abcd823b0e4b8a44cb7949a762ae083523e267604a26f3";
+
+  if (sessionStorage.getItem(ACCESS_KEY) === "true") return;
+
+  document.documentElement.classList.add("workspace-auth-locked");
+
+  const style = document.createElement("style");
+  style.textContent = `
+    .workspace-auth-locked body { overflow: hidden; }
+    .workspace-auth-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background:
+        linear-gradient(90deg, rgba(191, 217, 239, 0.28), transparent 34rem),
+        linear-gradient(180deg, #ffffff 0%, #f7f9fa 100%);
+      color: #001e2b;
+      font-family: Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .workspace-auth-backdrop::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0, 30, 43, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 30, 43, 0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 74%);
+    }
+    .workspace-auth-card {
+      position: relative;
+      width: min(420px, 100%);
+      padding: 24px;
+      border: 1px solid rgba(0, 30, 43, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 18px 46px rgba(0, 30, 43, 0.08);
+      backdrop-filter: blur(18px);
+    }
+    .workspace-auth-card img {
+      display: block;
+      width: 92px;
+      height: auto;
+      margin-bottom: 24px;
+    }
+    .workspace-auth-card p {
+      margin: 0;
+      color: #52636d;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .workspace-auth-card h1 {
+      margin: 0 0 10px;
+      color: #001e2b;
+      font-size: 1.75rem;
+      line-height: 1.08;
+    }
+    .workspace-auth-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .workspace-auth-form label {
+      display: grid;
+      gap: 8px;
+      color: #274454;
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+    .workspace-auth-form input {
+      min-height: 44px;
+      width: 100%;
+      padding: 0 12px;
+      border: 1px solid rgba(0, 30, 43, 0.18);
+      border-radius: 8px;
+      color: #001e2b;
+      background: #ffffff;
+      font: inherit;
+    }
+    .workspace-auth-form input:focus {
+      outline: 0;
+      border-color: #007599;
+      box-shadow: 0 0 0 4px rgba(0, 117, 153, 0.12);
+    }
+    .workspace-auth-form button {
+      min-height: 44px;
+      border: 1px solid #001e2b;
+      border-radius: 8px;
+      color: #ffffff;
+      background: #001e2b;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .workspace-auth-error {
+      min-height: 1.3em;
+      color: #9f1d20 !important;
+      font-size: 0.86rem !important;
+      font-weight: 800;
+    }
+  `;
+  document.head.append(style);
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+    } else {
+      callback();
+    }
+  }
+
+  async function hashAccessCode(value) {
+    const payload = `${SALT}:${value}`;
+    const buffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(payload));
+    return Array.from(new Uint8Array(buffer))
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  ready(() => {
+    const assetPrefix = location.pathname.includes("/reports/sbc-report/")
+      ? "../../assets"
+      : location.pathname.includes("/reports/")
+        ? "../assets"
+        : "./assets";
+    const backdrop = document.createElement("section");
+    backdrop.className = "workspace-auth-backdrop";
+    backdrop.setAttribute("aria-label", "Workspace access");
+    backdrop.innerHTML = `
+      <div class="workspace-auth-card">
+        <img src="${assetPrefix}/aryze-logo-wordmark.png" alt="Aryze" />
+        <h1>Commercial Workspace</h1>
+        <p>Enter the access code to open the internal Aryze workspace.</p>
+        <form class="workspace-auth-form">
+          <label>
+            Access code
+            <input type="password" autocomplete="current-password" required />
+          </label>
+          <p class="workspace-auth-error" aria-live="polite"></p>
+          <button type="submit">Open workspace</button>
+        </form>
+      </div>
+    `;
+    document.body.append(backdrop);
+
+    const form = backdrop.querySelector("form");
+    const input = backdrop.querySelector("input");
+    const error = backdrop.querySelector(".workspace-auth-error");
+
+    input.focus();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const hash = await hashAccessCode(input.value);
+      if (hash !== ACCESS_HASH) {
+        error.textContent = "Wrong access code.";
+        input.select();
+        return;
+      }
+
+      sessionStorage.setItem(ACCESS_KEY, "true");
+      document.documentElement.classList.remove("workspace-auth-locked");
+      backdrop.remove();
+    });
+  });
+})();

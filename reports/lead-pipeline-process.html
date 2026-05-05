@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lead Pipeline Process | Aryze</title>
+    <meta
+      name="description"
+      content="Internal Aryze process page for lead pipeline stages, lead cards, tasks, notes and operating discipline."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../site-auth.js" defer></script>
+  </head>
+  <body class="plan-page">
+    <header class="plan-topbar">
+      <a class="brand" href="../index.html#dashboard">
+        <img class="brand-logo" src="../assets/aryze-logo-wordmark.png" alt="Aryze" />
+        <span>
+          <small>Commercial Workspace</small>
+        </span>
+      </a>
+      <nav class="plan-nav" aria-label="Page navigation">
+        <a href="../index.html#dashboard">Dashboard</a>
+        <a href="#board">Board</a>
+        <a href="#stages">Stages</a>
+        <a href="#lead-card">Lead card</a>
+        <a href="#inside-card">Inside card</a>
+      </nav>
+    </header>
+
+    <main class="plan-shell">
+      <section class="plan-hero">
+        <div>
+          <p class="eyebrow">Commercial process | Lead pipeline | 2026</p>
+          <h1>How to read and use the lead pipeline.</h1>
+          <p>
+            The pipeline shows where each lead sits, who owns it, which product
+            path it belongs to and what should happen next. The board should be
+            used for status and movement, not long written explanations.
+          </p>
+        </div>
+
+        <aside class="plan-hero-panel">
+          <span>Pipeline rule</span>
+          <strong>Status, owner and next step must be visible.</strong>
+          <p>If those three things are unclear, the lead card is not ready for review.</p>
+        </aside>
+      </section>
+
+      <section class="plan-section visual-process-section" id="board">
+        <div class="section-copy compact">
+          <p class="eyebrow">Pipeline board</p>
+          <h2>Read the board from left to right.</h2>
+          <p>
+            Each column is a stage. A lead card moves right when the lead becomes
+            more concrete. Side stages keep long-term, parked or closed leads
+            out of the active sales flow.
+          </p>
+        </div>
+
+        <figure class="pipeline-board-figure">
+          <img src="../assets/lead-pipeline/pipeline-board.png" alt="Full lead pipeline board with stages from New to Backlog" />
+          <figcaption>
+            <strong>Pipeline view</strong>
+            <span>Stages show status. Lead cards show the active owner, company, product path and next action.</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="plan-section" id="stages">
+        <div class="section-copy compact">
+          <p class="eyebrow">Stages</p>
+          <h2>The stage tells the team what kind of action is needed.</h2>
+        </div>
+
+        <div class="pipeline-stage-grid">
+          <article>
+            <span>New</span>
+            <h3>New lead</h3>
+            <p>The lead has been added, but it has not yet been prioritised.</p>
+            <small>Move to Screening when the team decides to work it actively.</small>
+          </article>
+          <article>
+            <span>Screening</span>
+            <h3>Active first check</h3>
+            <p>The team is trying to reach the lead, book a first meeting or confirm product fit.</p>
+            <small>Move to Qualification when first dialogue confirms relevance.</small>
+          </article>
+          <article>
+            <span>Qualification</span>
+            <h3>Fit and next step</h3>
+            <p>Need, timing, use case, decision path and next action are being assessed.</p>
+            <small>Move forward only when the opportunity is concrete.</small>
+          </article>
+          <article>
+            <span>Onboarding</span>
+            <h3>Ready to start</h3>
+            <p>The lead is qualified enough for KYB, technical setup, legal review or commercial setup.</p>
+            <small>Move to Customer when the lead is live or close enough to count as active.</small>
+          </article>
+        </div>
+
+        <div class="note-format-grid side-stage-grid" aria-label="Side stages">
+          <article>
+            <span>Strategic Long-Term</span>
+            <p>Important relationships that matter, but move slowly.</p>
+          </article>
+          <article>
+            <span>Customer</span>
+            <p>Leads that are active, live or close enough to count as customer status.</p>
+          </article>
+          <article>
+            <span>Not Interested</span>
+            <p>Leads that should stop unless timing or relevance changes.</p>
+          </article>
+          <article>
+            <span>Backlog</span>
+            <p>Leads worth keeping, but not active focus right now.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="plan-section" id="lead-card">
+        <div class="section-copy compact">
+          <p class="eyebrow">Lead card</p>
+          <h2>The lead card is the quick status view.</h2>
+          <p>
+            A lead card should be readable without opening it. It should show who
+            the lead is, who owns it internally, which company it belongs to,
+            the product path, any agent or referral, and the next task.
+          </p>
+        </div>
+
+        <div class="pipeline-visual-grid lead-card-grid">
+          <figure>
+            <img src="../assets/lead-pipeline/lead-cards.png" alt="Lead cards showing owner, company, product, agent and follow-up task" />
+            <figcaption>
+              <strong>Lead card overview</strong>
+              <span>The card shows the contact, owner, company, product path, agent and task.</span>
+            </figcaption>
+          </figure>
+          <article>
+            <span class="field-label">Lead card fields</span>
+            <h3>What should be visible</h3>
+            <ul class="pipeline-list">
+              <li><strong>Contact</strong> is the person or lead name at the top of the card.</li>
+              <li><strong>Owner</strong> is the internal Aryze person responsible for follow-up.</li>
+              <li><strong>Company</strong> shows the organisation behind the lead.</li>
+              <li><strong>Product</strong> shows the likely path: Pay by Bank, Digital Cash, Stablecoin Factory or another relevant route.</li>
+              <li><strong>Agent</strong> captures the referral or introduction source when relevant.</li>
+              <li><strong>Task</strong> is the next concrete action, such as follow-up, meeting booking or waiting for response.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="plan-section two-column" id="inside-card">
+        <div class="section-copy">
+          <p class="eyebrow">Inside a lead card</p>
+          <h2>Use Notes, Tasks and Files for the detail behind the card.</h2>
+          <p>
+            When a lead card is opened, the tabs give the working context. The
+            board should stay clean; details belong inside the lead.
+          </p>
+        </div>
+
+        <div class="plan-card-list">
+          <article>
+            <span>Notes</span>
+            <strong>Use notes for status and history.</strong>
+            <p>Write what happened, what was sent, what the lead answered and what should happen next.</p>
+          </article>
+          <article>
+            <span>Tasks</span>
+            <strong>Use tasks for the next action.</strong>
+            <p>Create tasks for follow-up, booking, sending material, checking with an agent or waiting for response.</p>
+          </article>
+          <article>
+            <span>Files</span>
+            <strong>Use files for material shared or received.</strong>
+            <p>Attach one-pagers, decks, agreements, screenshots or any document needed to understand the lead.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="plan-section" id="workflow">
+        <div class="section-copy compact">
+          <p class="eyebrow">Working rule</p>
+          <h2>Update the board when the status changes.</h2>
+        </div>
+
+        <figure class="pipeline-note-figure">
+          <img src="../assets/lead-pipeline/lead-notes.png" alt="Lead notes panel with activity summary and next action" />
+          <figcaption>
+            <strong>Good note format</strong>
+            <span>Date, short activity summary, current status and next action. Keep it clear enough for another team member to understand the lead without asking the owner.</span>
+          </figcaption>
+        </figure>
+      </section>
+    </main>
+  </body>
+</html>

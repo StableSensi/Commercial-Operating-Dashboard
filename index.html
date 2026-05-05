@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./site-auth.js" defer></script>
   </head>
   <body>
     <div class="app-shell">
@@ -87,7 +88,7 @@
             <button class="filter-button" type="button" data-filter="process">Processes</button>
           </div>
 
-          <output class="result-count" id="resultCount" aria-live="polite">7 shown</output>
+          <output class="result-count" id="resultCount" aria-live="polite">8 shown</output>
         </section>
 
         <section class="workspace-section" id="library">
@@ -261,7 +262,7 @@
             <section class="workspace-group" data-group>
               <div class="workspace-group-head">
                 <h3>Processes</h3>
-                <span>1</span>
+                <span>2</span>
               </div>
               <div class="workspace-grid compact-grid">
                 <article
@@ -284,6 +285,29 @@
                   </dl>
                   <div class="card-actions">
                     <a class="button primary" href="./reports/sales-onboarding.html">Open</a>
+                  </div>
+                </article>
+
+                <article
+                  class="workspace-card"
+                  data-id="lead-pipeline-process"
+                  data-category="process"
+                  data-title="lead pipeline process stages cards tasks notes board"
+                >
+                  <div class="card-topline">
+                    <span class="status-pill">Ready</span>
+                    <span>Process</span>
+                  </div>
+                  <h3>Lead Pipeline Process</h3>
+                  <p>Operating standard for pipeline stages, lead cards, tasks and status notes.</p>
+                  <dl class="card-facts">
+                    <div><dt>Owner</dt><dd>Sales · Marketing</dd></div>
+                    <div><dt>Current focus</dt><dd>Pipeline discipline</dd></div>
+                    <div><dt>Next action</dt><dd>Use stage rules</dd></div>
+                    <div><dt>Updated</dt><dd>May 2026</dd></div>
+                  </dl>
+                  <div class="card-actions">
+                    <a class="button primary" href="./reports/lead-pipeline-process.html">Open</a>
                   </div>
                 </article>
               </div>
