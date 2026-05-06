@@ -27,7 +27,15 @@ const ADMIN_CREDENTIAL_HASH =
 const ADMIN_SESSION_KEY = "aryzeAdminUnlocked";
 const CARD_STATE_KEY = "aryzeDashboardCardState:v3";
 const LEGACY_CARD_STATE_KEYS = ["aryzeDashboardCardState", "aryzeDashboardCardState:v2"];
-const STATUS_OPTIONS = ["Ready", "Updated", "In progress", "Needs review", "Draft", "Not ready"];
+const STATUS_OPTIONS = [
+  "Ready",
+  "Updated",
+  "In progress",
+  "Needs review",
+  "Draft",
+  "Not ready",
+  "Coming soon",
+];
 
 function readCardState() {
   try {
