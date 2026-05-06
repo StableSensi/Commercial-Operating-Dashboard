@@ -15,10 +15,608 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .objectives-page {
+        --objective-ink: #001e2b;
+        --objective-teal: #007599;
+        --objective-blue: #bfd9ef;
+        --objective-amber: #d8a746;
+        --objective-red: #b84c3d;
+        background:
+          linear-gradient(90deg, rgba(191, 217, 239, 0.42), transparent 34rem),
+          linear-gradient(180deg, #ffffff 0%, #f7f9fa 56%, #edf3f6 100%);
+      }
+
+      .objectives-page .plan-shell {
+        width: min(1220px, calc(100% - 32px));
+      }
+
+      .objectives-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.58fr);
+        gap: clamp(18px, 3vw, 34px);
+        align-items: stretch;
+        padding: clamp(18px, 4vw, 36px);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(247, 249, 250, 0.9)),
+          linear-gradient(90deg, rgba(0, 117, 153, 0.08), transparent 42%);
+        box-shadow: var(--shadow);
+      }
+
+      .objectives-hero h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(2.75rem, 6vw, 5.8rem);
+        line-height: 0.92;
+      }
+
+      .objectives-hero p {
+        max-width: 730px;
+        margin: 20px 0 0;
+        color: var(--ink-soft);
+        font-size: clamp(1rem, 1.7vw, 1.18rem);
+        line-height: 1.55;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      .hero-tag {
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink-soft);
+        background: rgba(255, 255, 255, 0.74);
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      .runway-panel {
+        display: grid;
+        align-content: space-between;
+        gap: 22px;
+        min-height: 360px;
+        padding: 22px;
+        border: 1px solid rgba(0, 30, 43, 0.18);
+        border-radius: var(--radius);
+        color: #ffffff;
+        background:
+          linear-gradient(180deg, rgba(0, 30, 43, 0.94), rgba(0, 55, 76, 0.94)),
+          linear-gradient(90deg, rgba(191, 217, 239, 0.18), transparent);
+        box-shadow: 0 20px 46px rgba(0, 30, 43, 0.18);
+      }
+
+      .runway-panel span {
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      .runway-panel strong {
+        display: block;
+        margin-top: 10px;
+        color: #ffffff;
+        font-size: clamp(2.25rem, 4.5vw, 4.4rem);
+        line-height: 0.9;
+      }
+
+      .runway-panel p {
+        margin: 14px 0 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .runway-bar {
+        display: grid;
+        gap: 12px;
+      }
+
+      .runway-line {
+        position: relative;
+        height: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .runway-line::before {
+        content: "";
+        position: absolute;
+        inset: 0 18% 0 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--objective-blue), var(--objective-teal), var(--objective-amber));
+      }
+
+      .runway-scale {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .runway-scale div {
+        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .runway-scale b,
+      .runway-scale small {
+        display: block;
+      }
+
+      .runway-scale b {
+        color: #ffffff;
+        font-size: 0.94rem;
+      }
+
+      .runway-scale small {
+        margin-top: 4px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.74rem;
+      }
+
+      .objective-scoreboard {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .objective-scoreboard article {
+        min-height: 132px;
+        display: grid;
+        align-content: space-between;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .objective-scoreboard strong {
+        display: block;
+        margin-top: 10px;
+        color: var(--objective-ink);
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        line-height: 0.98;
+      }
+
+      .objective-scoreboard small {
+        display: block;
+        margin-top: 8px;
+        color: var(--ink-soft);
+        font-size: 0.84rem;
+        line-height: 1.32;
+      }
+
+      .roadmap-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 0.82fr) minmax(260px, 0.32fr);
+        gap: 22px;
+        align-items: end;
+        margin-bottom: 22px;
+      }
+
+      .roadmap-intro p {
+        max-width: 760px;
+      }
+
+      .roadmap-note {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .roadmap-note strong,
+      .roadmap-note span {
+        display: block;
+      }
+
+      .roadmap-note strong {
+        color: var(--objective-ink);
+        font-size: 1.08rem;
+        line-height: 1.2;
+      }
+
+      .roadmap-note span {
+        margin-top: 6px;
+        color: var(--ink-soft);
+        font-size: 0.86rem;
+        line-height: 1.42;
+      }
+
+      .premium-roadmap {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: var(--shadow);
+        list-style: none;
+      }
+
+      .premium-roadmap::before {
+        content: "";
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 68px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--objective-blue), var(--objective-teal), var(--objective-amber));
+      }
+
+      .roadmap-step {
+        position: relative;
+        z-index: 1;
+        min-height: 304px;
+        display: grid;
+        grid-template-rows: auto auto auto 1fr;
+        gap: 12px;
+        padding: 0 2px;
+      }
+
+      .roadmap-date {
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+        width: max-content;
+        max-width: 100%;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink-soft);
+        background: #ffffff;
+        font-size: 0.76rem;
+        font-weight: 900;
+      }
+
+      .roadmap-dot {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        border: 8px solid #ffffff;
+        border-radius: 999px;
+        color: #ffffff;
+        background: var(--objective-teal);
+        box-shadow: 0 12px 28px rgba(0, 30, 43, 0.18);
+        font-size: 0.8rem;
+        font-weight: 950;
+      }
+
+      .roadmap-step:nth-child(1) .roadmap-dot,
+      .roadmap-step:nth-child(2) .roadmap-dot {
+        background: #274454;
+      }
+
+      .roadmap-step:nth-child(5) .roadmap-dot,
+      .roadmap-step:nth-child(6) .roadmap-dot {
+        background: var(--objective-amber);
+        color: var(--objective-ink);
+      }
+
+      .roadmap-card {
+        min-height: 184px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #ffffff;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .roadmap-card h3 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.18;
+      }
+
+      .roadmap-card p {
+        margin: 9px 0 0;
+        color: var(--ink-soft);
+        font-size: 0.86rem;
+        line-height: 1.42;
+      }
+
+      .roadmap-card b {
+        display: block;
+        margin-top: 12px;
+        color: var(--objective-teal);
+        font-size: 0.78rem;
+        line-height: 1.32;
+      }
+
+      .market-lanes {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .market-lane {
+        min-height: 260px;
+        display: grid;
+        align-content: space-between;
+        gap: 18px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .market-lane h3 {
+        margin: 12px 0 0;
+        font-size: 1.28rem;
+        line-height: 1.12;
+      }
+
+      .market-lane > div > span,
+      .execution-system article div span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .market-lane p {
+        margin: 10px 0 0;
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      .lane-meter {
+        display: grid;
+        gap: 8px;
+      }
+
+      .lane-meter div {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: var(--surface-soft);
+      }
+
+      .lane-meter div::before {
+        content: "";
+        display: block;
+        width: var(--lane-width);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--objective-teal), var(--objective-blue));
+      }
+
+      .lane-meter span {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .execution-system {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .execution-system article {
+        min-height: 230px;
+        display: grid;
+        align-content: start;
+        gap: 12px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #ffffff;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .execution-number {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        color: #ffffff;
+        background: var(--objective-ink);
+        font-size: 0.78rem;
+        font-weight: 950;
+      }
+
+      .execution-system h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.18;
+      }
+
+      .execution-system p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        line-height: 1.48;
+      }
+
+      .december-board {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(340px, 0.58fr);
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .december-proof {
+        display: grid;
+        align-content: space-between;
+        min-height: 360px;
+        padding: 26px;
+        border: 1px solid rgba(0, 30, 43, 0.18);
+        border-radius: var(--radius);
+        color: #ffffff;
+        background:
+          linear-gradient(180deg, rgba(0, 30, 43, 0.96), rgba(0, 83, 109, 0.94)),
+          linear-gradient(120deg, transparent, rgba(216, 167, 70, 0.16));
+        box-shadow: var(--shadow);
+      }
+
+      .december-proof h2 {
+        color: #ffffff;
+      }
+
+      .december-proof p {
+        max-width: 720px;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .proof-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .proof-grid div {
+        min-height: 78px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .proof-grid span,
+      .proof-grid strong {
+        display: block;
+      }
+
+      .proof-grid span {
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 0.72rem;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .proof-grid strong {
+        margin-top: 8px;
+        color: #ffffff;
+        font-size: 1.32rem;
+      }
+
+      .revenue-stack {
+        display: grid;
+        gap: 10px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .revenue-stack div {
+        min-height: 58px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-soft);
+      }
+
+      .revenue-stack span {
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
+
+      .revenue-stack strong {
+        color: var(--objective-ink);
+        font-size: 0.94rem;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 1180px) {
+        .objectives-hero,
+        .roadmap-intro,
+        .december-board {
+          grid-template-columns: 1fr;
+        }
+
+        .premium-roadmap {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .premium-roadmap::before {
+          display: none;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .objective-scoreboard,
+        .market-lanes,
+        .execution-system {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        .objectives-hero {
+          padding: 22px;
+        }
+
+        .objective-scoreboard,
+        .premium-roadmap,
+        .market-lanes,
+        .execution-system,
+        .proof-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .runway-scale {
+          grid-template-columns: 1fr;
+        }
+
+        .roadmap-step {
+          min-height: auto;
+          grid-template-columns: auto minmax(0, 1fr);
+          grid-template-rows: auto auto;
+          align-items: start;
+        }
+
+        .roadmap-date {
+          grid-column: 1 / -1;
+        }
+
+        .roadmap-card {
+          min-height: 0;
+        }
+
+        .revenue-stack div {
+          grid-template-columns: 1fr;
+        }
+
+        .revenue-stack strong {
+          white-space: normal;
+        }
+      }
+    </style>
     <script src="../site-auth.js" defer></script>
     <script src="./objectives-auth.js" defer></script>
   </head>
-  <body class="plan-page">
+  <body class="plan-page objectives-page">
     <header class="plan-topbar">
       <a class="brand" href="../index.html#dashboard">
         <img class="brand-logo" src="../assets/aryze-logo-wordmark.png" alt="Aryze" />
@@ -28,7 +626,7 @@
       </a>
       <nav class="plan-nav" aria-label="Page navigation">
         <a href="../index.html#dashboard">Dashboard</a>
-        <a href="#milestones">Milestones</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="#markets">Markets</a>
         <a href="#execution">Execution</a>
         <a href="#december">December</a>
@@ -36,29 +634,54 @@
     </header>
 
     <main class="plan-shell">
-      <section class="plan-hero">
+      <section class="objectives-hero">
         <div>
-          <p class="eyebrow">OKR | Q3 + Q4 2026 | Internal</p>
+          <p class="eyebrow">Executive OKR | Q3 + Q4 2026 | Internal</p>
           <h1>ARYZE 2026 Objectives.</h1>
           <p>
-            A crisp operating plan for the second half of 2026: secure the EU
-            licensing roof, convert the UK and EU casino pipelines into live
-            merchants, and scale monthly transaction volume into measurable
+            The second-half plan is simple and aggressive: secure the EU operating
+            roof, convert the UK and EU casino pipelines into live merchants, and
+            prove that ARYZE can turn monthly transaction volume into durable
             casino revenue.
           </p>
+          <div class="hero-actions" aria-label="Objective framing">
+            <span class="hero-tag">Licensing coverage</span>
+            <span class="hero-tag">Casino go-lives</span>
+            <span class="hero-tag">Transaction scale</span>
+            <span class="hero-tag">Revenue proof</span>
+          </div>
         </div>
 
-        <aside class="plan-hero-panel">
-          <span>North star</span>
-          <strong>&gt;4.2M monthly transactions</strong>
-          <p>
-            By 1 December 2026, ARYZE should be operating at casino segment scale
-            with more than 40 UK casinos and more than 100 EU casinos live.
-          </p>
+        <aside class="runway-panel">
+          <div>
+            <span class="eyebrow">North star</span>
+            <strong>&gt;4.2M</strong>
+            <p>
+              Monthly casino transactions by 1 December 2026, powered by a combined
+              live base of more than 140 UK and EU casinos.
+            </p>
+          </div>
+          <div class="runway-bar" aria-label="Objective runway">
+            <div class="runway-line"></div>
+            <div class="runway-scale">
+              <div>
+                <b>July</b>
+                <small>EU roof</small>
+              </div>
+              <div>
+                <b>October</b>
+                <small>400k EUR monthly</small>
+              </div>
+              <div>
+                <b>December</b>
+                <small>840k EUR monthly</small>
+              </div>
+            </div>
+          </div>
         </aside>
       </section>
 
-      <section class="plan-metrics" aria-label="Objective snapshot">
+      <section class="objective-scoreboard" aria-label="Objective snapshot">
         <article>
           <span>Window</span>
           <strong>Q3-Q4</strong>
@@ -81,53 +704,79 @@
         </article>
       </section>
 
-      <section class="plan-section" id="milestones">
-        <div class="section-copy compact">
-          <p class="eyebrow">Milestone path</p>
-          <h2>Month-by-month targets from licensing coverage to casino scale.</h2>
+      <section class="plan-section" id="roadmap">
+        <div class="roadmap-intro">
+          <div class="section-copy">
+            <p class="eyebrow">Strategic roadmap</p>
+            <h2>Six milestones that turn access into revenue scale.</h2>
+            <p>
+              Each month has a concrete operating job. The roadmap moves from
+              regulatory access, to first UK proof, to EU activation, and finally
+              to a combined transaction and revenue proof point.
+            </p>
+          </div>
+          <aside class="roadmap-note">
+            <strong>Operating logic</strong>
+            <span>Live casino count is the leading signal. Transaction volume and monthly revenue are the proof signals.</span>
+          </aside>
         </div>
 
-        <div class="timeline-board">
-          <article>
-            <span>1 July</span>
-            <strong>EU licensing roof secured</strong>
-            <p>Establish the EU licensing roof through Payable / Volt.</p>
-          </article>
-          <article>
-            <span>1 August</span>
-            <strong>First UK live base</strong>
-            <p>Move more than 20 UK casinos live from the 30-casino pipeline.</p>
-          </article>
-          <article>
-            <span>1 September</span>
-            <strong>UK volume plus EU launch</strong>
-            <p>
-              Reach more than 600k monthly UK transactions and bring 50 EU
-              casinos live from the 500-casino EU pipeline.
-            </p>
-          </article>
-          <article>
-            <span>1 October</span>
-            <strong>EU volume converts to revenue</strong>
-            <p>
-              Reach more than 1.5M monthly EU transactions and more than
-              400k EUR in monthly casino revenue.
-            </p>
-          </article>
-          <article>
-            <span>1 November</span>
-            <strong>Live base doubles down</strong>
-            <p>Scale the live footprint to more than 40 UK casinos and more than 100 EU casinos.</p>
-          </article>
-          <article>
-            <span>1 December</span>
-            <strong>Combined revenue proof point</strong>
-            <p>
-              Reach more than 4.2M monthly transactions and more than 840k EUR
-              in monthly casino revenue.
-            </p>
-          </article>
-        </div>
+        <ol class="premium-roadmap" aria-label="2026 objective roadmap">
+          <li class="roadmap-step">
+            <span class="roadmap-date">1 July</span>
+            <span class="roadmap-dot">01</span>
+            <div class="roadmap-card">
+              <h3>EU operating roof</h3>
+              <p>Secure the EU licensing roof through Payable / Volt.</p>
+              <b>Foundation for EU activation</b>
+            </div>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-date">1 August</span>
+            <span class="roadmap-dot">02</span>
+            <div class="roadmap-card">
+              <h3>First UK live base</h3>
+              <p>Move more than 20 UK casinos live from the 30-casino pipeline.</p>
+              <b>Commercial proof in production</b>
+            </div>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-date">1 September</span>
+            <span class="roadmap-dot">03</span>
+            <div class="roadmap-card">
+              <h3>UK volume plus EU launch</h3>
+              <p>Reach more than 600k monthly UK transactions and bring 50 EU casinos live.</p>
+              <b>Two-market momentum</b>
+            </div>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-date">1 October</span>
+            <span class="roadmap-dot">04</span>
+            <div class="roadmap-card">
+              <h3>EU volume converts</h3>
+              <p>Reach more than 1.5M monthly EU transactions and more than 400k EUR in monthly revenue.</p>
+              <b>First revenue checkpoint</b>
+            </div>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-date">1 November</span>
+            <span class="roadmap-dot">05</span>
+            <div class="roadmap-card">
+              <h3>Live base doubles down</h3>
+              <p>Scale the footprint to more than 40 UK casinos and more than 100 EU casinos.</p>
+              <b>Installed base for December scale</b>
+            </div>
+          </li>
+          <li class="roadmap-step">
+            <span class="roadmap-date">1 December</span>
+            <span class="roadmap-dot">06</span>
+            <div class="roadmap-card">
+              <h3>Revenue-scale proof</h3>
+              <p>Reach more than 4.2M monthly transactions and more than 840k EUR in monthly revenue.</p>
+              <b>Board-level proof point</b>
+            </div>
+          </li>
+        </ol>
       </section>
 
       <section class="plan-section two-column" id="markets">
@@ -142,74 +791,145 @@
           </p>
         </div>
 
-        <div class="plan-card-list">
-          <article>
-            <span>UK motion</span>
-            <strong>Convert 30 pipeline casinos into more than 20 live operators.</strong>
-            <p>The September volume target is more than 600k UK transactions per month.</p>
+        <div class="market-lanes">
+          <article class="market-lane">
+            <div>
+              <span>UK motion</span>
+              <h3>Transaction density from a focused pipeline.</h3>
+              <p>The September volume target is more than 600k UK transactions per month.</p>
+            </div>
+            <div class="lane-meter" style="--lane-width: 67%">
+              <div></div>
+              <span>20+ of 30 casinos live</span>
+            </div>
           </article>
-          <article>
-            <span>EU motion</span>
-            <strong>Turn licensing coverage into the first 50 live EU casinos.</strong>
-            <p>The EU pipeline target is 50 live casinos from a broader 500-casino opportunity base.</p>
+          <article class="market-lane">
+            <div>
+              <span>EU motion</span>
+              <h3>Scale curve from licensing coverage.</h3>
+              <p>The EU objective is 50 live casinos by September, then 100+ live by November.</p>
+            </div>
+            <div class="lane-meter" style="--lane-width: 50%">
+              <div></div>
+              <span>50 live by September</span>
+            </div>
           </article>
-          <article>
-            <span>Revenue motion</span>
-            <strong>Translate combined UK and EU volume into monthly casino revenue.</strong>
-            <p>October becomes the first revenue checkpoint, with a target above 400k EUR per month.</p>
+          <article class="market-lane">
+            <div>
+              <span>Revenue motion</span>
+              <h3>Volume translated into recurring revenue.</h3>
+              <p>October becomes the first revenue checkpoint, then December doubles the target.</p>
+            </div>
+            <div class="lane-meter" style="--lane-width: 100%">
+              <div></div>
+              <span>840k EUR monthly target</span>
+            </div>
           </article>
         </div>
       </section>
 
       <section class="plan-section" id="execution">
         <div class="section-copy compact">
-          <p class="eyebrow">Execution priorities</p>
+          <p class="eyebrow">Execution system</p>
           <h2>The objective only works if onboarding, go-live and revenue tracking move together.</h2>
         </div>
 
-        <div class="channel-grid">
+        <div class="execution-system">
           <article>
-            <span>Licensing</span>
-            <h3>Close the EU operating roof</h3>
+            <span class="execution-number">01</span>
+            <div>
+              <span>Licensing</span>
+              <h3>Close the EU operating roof</h3>
+            </div>
             <p>Make Payable / Volt coverage the foundation for EU casino activation.</p>
           </article>
           <article>
-            <span>Pipeline</span>
-            <h3>Prioritise live conversion</h3>
+            <span class="execution-number">02</span>
+            <div>
+              <span>Pipeline</span>
+              <h3>Prioritise live conversion</h3>
+            </div>
             <p>Keep commercial energy focused on casinos that can move from pipeline to production.</p>
           </article>
           <article>
-            <span>Onboarding</span>
-            <h3>Remove go-live friction</h3>
+            <span class="execution-number">03</span>
+            <div>
+              <span>Onboarding</span>
+              <h3>Remove go-live friction</h3>
+            </div>
             <p>Protect the timeline by making technical, compliance and commercial readiness explicit.</p>
           </article>
           <article>
-            <span>Reporting</span>
-            <h3>Track volume and revenue weekly</h3>
+            <span class="execution-number">04</span>
+            <div>
+              <span>Reporting</span>
+              <h3>Track volume and revenue weekly</h3>
+            </div>
             <p>Use live casino count, transaction volume and monthly revenue as the operating scorecard.</p>
           </article>
         </div>
       </section>
 
-      <section class="plan-section two-column" id="december">
+      <section class="plan-section" id="december">
+        <div class="december-board">
+          <div class="december-proof">
+            <div class="section-copy">
+              <p class="eyebrow">December proof point</p>
+              <h2>By December, the objective becomes a revenue-scale test.</h2>
+              <p>
+                The final milestone is not just a larger customer count. ARYZE
+                should have a live casino base large enough to support more than
+                4.2 million monthly transactions and more than 840k EUR in monthly
+                casino revenue.
+              </p>
+            </div>
+            <div class="proof-grid">
+              <div><span>UK live base</span><strong>&gt;40 casinos</strong></div>
+              <div><span>EU live base</span><strong>&gt;100 casinos</strong></div>
+              <div><span>Monthly volume</span><strong>&gt;4.2M txns</strong></div>
+              <div><span>Monthly revenue</span><strong>&gt;840k EUR</strong></div>
+            </div>
+          </div>
+
+          <div class="revenue-stack" aria-label="Revenue milestone stack">
+            <div><span>July dependency</span><strong>EU roof</strong></div>
+            <div><span>August live base</span><strong>&gt;20 UK</strong></div>
+            <div><span>September launch</span><strong>50 EU</strong></div>
+            <div><span>October checkpoint</span><strong>&gt;400k EUR</strong></div>
+            <div><span>November base</span><strong>&gt;140 casinos</strong></div>
+            <div><span>December target</span><strong>&gt;840k EUR</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="plan-section two-column" id="source">
         <div class="section-copy">
-          <p class="eyebrow">December proof point</p>
-          <h2>By December, the objective becomes a revenue-scale test.</h2>
+          <p class="eyebrow">Operating summary</p>
+          <h2>What must be true for the roadmap to land.</h2>
           <p>
-            The final milestone is not just a larger customer count. By
-            1 December 2026, ARYZE should have a live casino base large enough
-            to support more than 4.2 million monthly transactions and more than
-            840k EUR in monthly casino revenue.
+            The objective depends on clear ownership across licensing, sales,
+            onboarding and reporting. The live casino count should be reviewed
+            as the leading indicator, with transaction volume and monthly revenue
+            reviewed as proof that the installed base is performing.
           </p>
         </div>
 
-        <div class="budget-table">
-          <div><span>UK live base</span><strong>&gt;40 casinos</strong></div>
-          <div><span>EU live base</span><strong>&gt;100 casinos</strong></div>
-          <div><span>Monthly transactions</span><strong>&gt;4.2M</strong></div>
-          <div><span>Monthly casino revenue</span><strong>&gt;840k EUR</strong></div>
-          <div><span>October checkpoint</span><strong>&gt;400k EUR</strong></div>
-          <div><span>Operating window</span><strong>Q3 + Q4 2026</strong></div>
+        <div class="plan-card-list">
+          <article>
+            <span>UK motion</span>
+            <strong>Convert 30 pipeline casinos into more than 20 live operators.</strong>
+            <p>UK execution proves transaction density before the wider scale curve.</p>
+          </article>
+          <article>
+            <span>EU motion</span>
+            <strong>Turn licensing coverage into the first 50 live EU casinos.</strong>
+            <p>EU execution converts a larger opportunity base into live volume.</p>
+          </article>
+          <article>
+            <span>Revenue motion</span>
+            <strong>Translate combined UK and EU volume into monthly casino revenue.</strong>
+            <p>Revenue tracking makes the roadmap commercially accountable.</p>
+          </article>
         </div>
       </section>
     </main>
