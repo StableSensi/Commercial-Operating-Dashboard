@@ -7,279 +7,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <script src="../site-auth.js" defer></script>
+  <link rel="stylesheet" href="../styles.css">
   <style>
-    :root {
-      --ink: #001e2b;
-      --navy: #001e2b;
-      --slate: #274454;
-      --muted: #52636d;
-      --line: #b8c1c7;
-      --paper: #f7f9fa;
-      --panel: #ffffff;
-      --soft: #e3e8eb;
-      --teal: #007599;
-      --blue: #007599;
-      --gold: #bfd9ef;
-      --accent: #007599;
-      --shadow-soft: 0 10px 26px rgba(0, 30, 43, 0.06);
-      --radius: 8px;
-      font-family: Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 104px; }
-    body { margin: 0; color: var(--ink); background: var(--paper); letter-spacing: 0; }
-    a { color: inherit; text-decoration: none; }
-    h1, h2, h3, p { overflow-wrap: anywhere; }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      width: min(1180px, calc(100% - 32px));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin: 16px auto 0;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 18px 48px rgba(0, 30, 43, 0.08);
-    }
-
-    .brand { display: flex; align-items: center; gap: 10px; color: var(--navy); font-weight: 760; }
-    .brand-logo { display: block; width: 88px; height: auto; }
-    .brand small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 760; }
-
-    .nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 3px; color: var(--muted); font-size: 13px; font-weight: 680; }
-    .nav a { padding: 8px 9px; border-radius: var(--radius); }
-    .nav a:hover { background: var(--panel); color: var(--ink); }
-    .nav a[href*="dashboard"] { color: var(--ink); font-weight: 920; }
-
-    .section { scroll-margin-top: 104px; padding: clamp(58px, 7vw, 92px) clamp(16px, 5vw, 64px); }
-    .section-inner { width: min(1160px, 100%); margin: 0 auto; }
-
-    .cover {
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(184, 193, 199, .36) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(184, 193, 199, .28) 1px, transparent 1px),
-        linear-gradient(180deg, #ffffff 0%, #f7f9fa 100%);
-      background-size: 72px 72px, 72px 72px, auto;
-    }
-
-    .cover-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 28px;
-      align-items: end;
-    }
-
-    .eyebrow {
-      margin: 0 0 14px;
-      color: var(--teal);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    h1 { max-width: 850px; margin: 0; font-size: clamp(42px, 6.8vw, 78px); line-height: .98; }
-    .subtitle { max-width: 760px; margin: 18px 0 0; color: var(--slate); font-size: clamp(18px, 2.1vw, 24px); line-height: 1.35; font-weight: 620; }
-    .meta { margin: 18px 0 0; color: #8b95a7; font-size: 13px; font-weight: 680; }
-    .copy { max-width: 930px; margin: 30px 0 0; color: var(--slate); font-size: 17px; line-height: 1.55; }
-
-    .doc-link {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 13px;
-      border: 1px solid #c5ccd8;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.92);
-      color: var(--navy);
-      font-size: 13px;
-      font-weight: 760;
-      white-space: nowrap;
-    }
-
-    .cards-3, .products, .calls, .followups, .readiness, .metrics {
-      display: grid;
-      gap: 14px;
-    }
-    .cards-3, .products { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .calls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .followups, .readiness, .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-    .card, .panel, .product, .call, .gate, .role, .appendix {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .card, .product, .call, .role, .appendix { padding: 20px; }
-    .card span, .label {
-      display: inline-flex;
-      margin-bottom: 16px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: var(--soft);
-      color: var(--teal);
-      font-size: 11px;
-      font-weight: 820;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-
-    h2 { max-width: 830px; margin: 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; }
-    h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.14; }
-    p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
-
-    .section-title {
-      display: grid;
-      grid-template-columns: minmax(0, .78fr) minmax(280px, .22fr);
-      gap: 30px;
-      align-items: end;
-      margin-bottom: 28px;
-    }
-
-    .comparison { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
-    .comparison > div { padding: 24px; }
-    .comparison > div + div { border-left: 1px solid var(--line); background: #fbfcfd; }
-    .mini-flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
-    .mini-flow span { min-height: 32px; display: inline-flex; align-items: center; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--slate); font-size: 12px; font-weight: 720; }
-
-    .entry-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .42fr); gap: 16px; }
-    .entry-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .entry { min-height: 118px; padding: 20px; display: grid; gap: 8px; align-content: start; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.92); box-shadow: var(--shadow-soft); }
-    .entry strong { color: var(--ink); font-size: 16px; line-height: 1.2; }
-    .entry span { color: var(--muted); font-size: 13px; line-height: 1.42; }
-    .entry-target { padding: 24px; display: grid; align-content: center; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); background: var(--navy); color: #fff; box-shadow: var(--shadow-soft); }
-    .entry-target .label { background: rgba(255,255,255,.12); color: #fff; }
-    .entry-target p { color: rgba(255,255,255,.76); }
-
-    .flow-section { color: #fff; background: var(--navy); }
-    .flow-section h2 { color: #fff; }
-    .flow-section .section-title p { color: rgba(255,255,255,.72); }
-    .flow-board { padding: clamp(18px, 3vw, 28px); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: rgba(255,255,255,.055); }
-    .flow-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; margin-bottom: 26px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.16); }
-    .flow-head h3 { color: #fff; font-size: clamp(24px, 3vw, 34px); }
-    .flow-head p { max-width: 760px; color: rgba(255,255,255,.72); font-size: 14px; }
-    .flow-key { min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; color: rgba(255,255,255,.86); font-size: 12px; font-weight: 780; }
-    .stage-track { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
-    .stage-track::before { content: ""; position: absolute; left: 6%; right: 6%; top: 31px; height: 2px; background: rgba(255,255,255,.22); }
-    .stage { position: relative; z-index: 1; min-height: 205px; display: grid; grid-template-rows: auto auto 1fr; gap: 12px; padding: 0 4px; }
-    .stage:not(:last-child)::after { content: ""; position: absolute; top: 31px; right: -9px; width: 10px; height: 10px; border-top: 2px solid rgba(255,255,255,.45); border-right: 2px solid rgba(255,255,255,.45); transform: rotate(45deg); }
-    .num { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 999px; background: #fff; color: var(--navy); font-size: 13px; font-weight: 840; }
-    .stage h3 { color: #fff; font-size: 17px; }
-    .stage p { color: rgba(255,255,255,.7); font-size: 13px; }
-    .branches, .outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-    .branch, .outcome { padding: 16px; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); background: rgba(255,255,255,.06); }
-    .branch h4 { margin: 0 0 12px; color: rgba(255,255,255,.68); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-    .options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-    .options span { min-height: 46px; display: grid; place-items: center; padding: 9px; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); color: rgba(255,255,255,.86); text-align: center; font-size: 12px; font-weight: 720; }
-    .outcome strong { display: block; margin-bottom: 6px; color: #fff; }
-    .outcome span { display: block; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.4; }
-
-    .product { min-height: 330px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-    .product::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--accent); }
-    .motion { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); }
-    .motion strong { display: block; color: var(--ink); font-size: 13px; }
-    .motion span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.42; }
-
-    .call ul, .metric ul, .criteria { display: grid; gap: 8px; margin: 12px 0 16px; padding: 0; list-style: none; }
-    .call li, .metric li, .criteria li { color: var(--muted); font-size: 13px; line-height: 1.35; }
-    .call li::before, .metric li::before, .criteria li::before { content: "• "; color: var(--teal); font-weight: 900; }
-    .output { padding: 13px; border: 1px solid var(--line); border-radius: var(--radius); background: #fbfcfd; color: var(--slate); font-size: 13px; line-height: 1.4; }
-    .note { margin-top: 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--soft); color: var(--slate); font-size: 14px; line-height: 1.45; font-weight: 650; }
-
-    .gates { display: grid; gap: 10px; }
-    .gate { display: grid; grid-template-columns: 54px minmax(150px, .58fr) minmax(0, 1fr) minmax(220px, .82fr); gap: 16px; align-items: start; padding: 16px; }
-    .gate-num { width: 52px; height: 52px; display: grid; place-items: center; border: 1px solid #c5ccd8; border-radius: 999px; color: var(--navy); font-size: 12px; font-weight: 840; }
-    .gate-rule { height: 100%; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: #fbfcfd; }
-    .gate-rule strong { display: block; margin-bottom: 5px; color: var(--slate); font-size: 12px; }
-    .gate-rule span { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; }
-
-    .matrix { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow-soft); }
-    .row { display: grid; grid-template-columns: minmax(170px, .85fr) minmax(170px, .9fr) minmax(280px, 1.35fr) minmax(200px, .9fr); border-top: 1px solid var(--line); }
-    .row:first-child { border-top: 0; }
-    .row.header { background: var(--soft); color: var(--navy); font-size: 11px; font-weight: 840; letter-spacing: .08em; text-transform: uppercase; }
-    .cell { padding: 16px; border-left: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.42; }
-    .cell:first-child { border-left: 0; }
-    .cell strong { display: block; color: var(--ink); font-size: 15px; }
-    .cell em { display: block; margin-top: 4px; color: #8b95a7; font-style: normal; font-size: 12px; }
-
-    .status { display: grid; gap: 8px; margin-top: 12px; }
-    .status span { display: grid; grid-template-columns: 18px 1fr; gap: 8px; color: var(--slate); font-size: 13px; line-height: 1.35; }
-    .status span::before { content: ""; width: 10px; height: 10px; margin-top: 4px; border-radius: 999px; background: rgba(0,143,134,.18); box-shadow: inset 0 0 0 2px var(--teal); }
-
-    .appendix { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; background: #fbfcfd; }
-    details { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; box-shadow: var(--shadow-soft); }
-    summary { cursor: pointer; padding: 14px 18px; color: var(--navy); font-weight: 760; }
+    details { box-shadow: var(--shadow-soft); }
     details .matrix { border: 0; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none; }
-    iframe { width: 100%; height: min(78vh, 780px); border: 0; border-top: 1px solid var(--line); background: var(--soft); }
-
-    @media (max-width: 1120px) {
-      .nav { display: none; }
-      .cover-top, .section-title, .entry-layout, .appendix { grid-template-columns: 1fr; }
-      .doc-link { justify-self: start; }
-      .flow-head, .stage-track, .branches, .outcomes { grid-template-columns: 1fr; }
-      .stage-track { gap: 14px; margin-left: 24px; }
-      .stage-track::before { left: -14px; right: auto; top: 32px; bottom: 32px; width: 2px; height: auto; }
-      .stage { min-height: auto; grid-template-columns: 64px 1fr; grid-template-rows: auto auto; column-gap: 14px; padding: 0; }
-      .stage:not(:last-child)::after { top: auto; right: auto; bottom: -12px; left: 26px; transform: rotate(135deg); }
-      .stage p { grid-column: 2; }
-    }
-
-    @media (max-width: 940px) {
-      .cards-3, .comparison, .entry-grid, .products, .calls, .followups, .readiness, .metrics { grid-template-columns: 1fr; }
-      .comparison > div + div { border-left: 0; border-top: 1px solid var(--line); }
-      .options { grid-template-columns: 1fr 1fr; }
-      .gate { grid-template-columns: 54px 1fr; gap: 12px; }
-      .gate > p, .gate .criteria, .gate-rule { grid-column: 2; }
-      .row, .row.header { grid-template-columns: 1fr; }
-      .row.header { display: none; }
-      .cell { border-left: 0; border-top: 1px solid var(--line); }
-      .cell:first-child { border-top: 0; }
-    }
-
-    @media (max-width: 680px) {
-      .section { padding: 46px 16px; }
-      h1 { font-size: clamp(38px, 12vw, 54px); }
-      .section-title { gap: 12px; margin-bottom: 20px; }
-      .section-title h2 { font-size: clamp(28px, 9vw, 38px); }
-      .flow-board { padding: 16px; }
-      .flow-head { gap: 12px; margin-bottom: 18px; padding-bottom: 16px; }
-      .flow-head h3 { font-size: 24px; }
-      .stage-track { gap: 10px; margin: 0; }
-      .stage-track::before, .stage:not(:last-child)::after { display: none; }
-      .stage { grid-template-columns: 42px 1fr; row-gap: 6px; padding: 14px; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); background: rgba(255,255,255,.055); }
-      .num { width: 42px; height: 42px; font-size: 12px; }
-      .stage h3 { align-self: center; font-size: 18px; }
-      .stage p { grid-column: 2; font-size: 13px; }
-      .options { grid-template-columns: 1fr; }
-      .gate { grid-template-columns: 44px 1fr; padding: 14px; }
-      .gate-num { width: 44px; height: 44px; }
-      .label { max-width: 100%; margin-bottom: 10px; font-size: 11px; line-height: 1.15; white-space: normal; }
-      .gate h3 { margin-bottom: 0; font-size: 21px; }
-      .gate > p, .gate .criteria, .gate-rule { grid-column: 1 / -1; }
-      .card, .product, .call, .role, .appendix { padding: 16px; }
-      .appendix .doc-link { width: 100%; }
-      iframe { height: 68vh; }
-    }
   </style>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="../index.html#dashboard" aria-label="Aryze Commercial Workspace"><img class="brand-logo" src="../assets/aryze-logo-wordmark.png" alt="Aryze"><span><small>Commercial Workspace</small></span></a>
     <nav class="nav">
-      <a href="../index.html#dashboard">Dashboard</a><a href="#top">Overview</a><a href="#change">Strategic Shift</a><a href="#entry">Channels</a><a href="#origination">Origination</a><a href="#flow">Operating Flow</a><a href="#products">Motions</a><a href="#markets">Markets</a><a href="#pipeline">Pipeline</a><a href="#next-steps">Next Steps</a>
+      <a href="../index.html#dashboard">Dashboard</a>
+      <a href="#top">Overview</a>
+      <a href="#choice">Strategic Choice</a>
+      <a href="#products">Products</a>
+      <a href="#personas">Personas</a>
+      <a href="#qualification">Qualification</a>
+      <a href="#channels">Channels</a>
+      <a href="#flow">Sales Process</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#objections">Objections</a>
     </nav>
   </header>
 
@@ -290,146 +37,224 @@
           <div>
             <p class="eyebrow">Commercial strategy</p>
             <h1>Sales Strategy</h1>
-            <p class="subtitle">How Aryze turns market activity into qualified opportunities, clear ownership and next steps.</p>
-            <p class="meta">Aryze commercial strategy &middot; Sales operating model &middot; 2026</p>
+            <p class="subtitle">How Aryze turns market activity into qualified opportunities and credible commercial commitments.</p>
+            <p class="meta">Aryze commercial strategy &middot; 2026</p>
           </div>
         </div>
-        <p class="copy">Aryze's sales strategy is built around sharper qualification, product-specific sales motions and clear ownership from first signal to committed next step. The goal is simple: focus on the accounts where Aryze has the strongest right to win and move them through a visible pipeline.</p>
+        <p class="copy">Three products. Three buyers. Three motions. The strategy below defines who we sell to, how we qualify, where leads come from, and how the team should run the pipeline. The page ends where the <a href="./sales-onboarding.html">Sales-to-Onboarding Process</a> begins, at commercial commitment.</p>
         <div class="cards-3" style="margin-top:28px">
-          <article class="card"><span>Focus</span><h3>Prioritise the accounts where Aryze has a clear right to win.</h3><p>Sales effort should concentrate on segments where payment economics, compliance, settlement, issuance or deployment speed create a real commercial reason to engage.</p></article>
-          <article class="card"><span>Method</span><h3>Use product-specific motions instead of one generic pitch.</h3><p>Pay by Bank, Stablecoin Factory and Digital Cash each require a different buyer conversation, proof point and decision path.</p></article>
-          <article class="card"><span>Control</span><h3>Move every serious opportunity through owned next steps.</h3><p>Progress should be visible through qualification, decision points, stakeholder alignment, risk checks and documented ownership.</p></article>
+          <article class="card"><span>Focus</span><h3>Right to win.</h3><p>Concentrate on accounts where payment economics, deployment speed, licensing position or operating-model depth create a real reason to engage now.</p></article>
+          <article class="card"><span>Method</span><h3>One motion per product.</h3><p>Pay by Bank, Stablecoin Factory and Digital Cash each need a different conversation, cycle and proof point. Mixing them is the most common way deals are lost.</p></article>
+          <article class="card"><span>Discipline</span><h3>Visible next steps.</h3><p>Product path, decision owner and next milestone must be documented before management treats an opportunity as real.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="change">
+    <section class="section" id="choice">
       <div class="section-inner">
-        <div class="section-title"><h2>The shift is from activity to qualified movement.</h2><p>The sales team should create demand, qualify it quickly and move only credible opportunities into structured commercial work. This gives management a clear view of where momentum is real and where attention should stop.</p></div>
+        <div class="section-title"><h2>Fit before volume.</h2><p>Demand can come from many channels. Every signal passes the same standard: product fit, buyer intent, commercial value, and a clear next decision.</p></div>
         <section class="panel comparison">
-          <div><span class="label">Avoid</span><h3>Broad selling with unclear ownership</h3><div class="mini-flow"><span>Generic pitch</span><span>Unqualified interest</span><span>Loose follow-up</span><span>Late risk review</span><span>Unclear owner</span></div><p>This creates activity, but it does not create a reliable view of conversion, risk or management priority.</p></div>
-          <div><span class="label">Target model</span><h3>Segment-led selling with decision discipline</h3><div class="mini-flow"><span>Defined ICP</span><span>Relevant one-pager</span><span>Qualified meeting</span><span>Product motion</span><span>Owned next step</span></div><p>Every serious opportunity is routed by product fit, commercial value, stakeholder maturity and the next decision required.</p></div>
+          <div><span class="label">Avoid</span><h3>Broad selling, loose ownership.</h3><div class="mini-flow"><span>Generic pitch</span><span>Unqualified interest</span><span>Loose follow-up</span><span>Late risk review</span></div><p>Activity, but no reliable view of fit or commercial commitment.</p></div>
+          <div><span class="label">Target</span><h3>Segment-led, decision-disciplined.</h3><div class="mini-flow"><span>Defined ICP</span><span>Right motion</span><span>Qualified meeting</span><span>Commercial commitment</span></div><p>Every opportunity routes by product fit, buyer maturity and the next decision required.</p></div>
         </section>
-      </div>
-    </section>
-
-    <section class="section" id="entry">
-      <div class="section-inner">
-        <div class="section-title"><h2>Commercial channels and qualification standard</h2><p>Aryze can source demand from several channels, but every serious signal must pass the same standard: product fit, buyer intent, commercial value and a clear next decision.</p></div>
-        <div class="entry-layout">
-          <div class="entry-grid">
-            <article class="entry"><strong>Agents</strong><span>Trusted access and warm introductions when product fit and buyer context are clear.</span></article>
-            <article class="entry"><strong>Memberships</strong><span>Ecosystem visibility, partner access and credibility in relevant market environments.</span></article>
-            <article class="entry"><strong>Conferences and events</strong><span>Concentrated relationship opportunities that can turn into qualified follow-up.</span></article>
-            <article class="entry"><strong>Partner referrals</strong><span>Introductions that accelerate trust when the customer problem is relevant.</span></article>
-            <article class="entry"><strong>Direct outreach</strong><span>Targeted segment work where the seller can start with a clear product path.</span></article>
-            <article class="entry"><strong>Inbound</strong><span>Already-active interest that still needs qualification before it enters the pipeline.</span></article>
-            <article class="entry"><strong>Campaign response</strong><span>Structured demand from content, email, SEO, LinkedIn or product-specific campaigns.</span></article>
-          </div>
-          <aside class="entry-target"><span class="label">Routing point</span><h3>Segment-specific sales path</h3><p>Each channel should route into the right product motion, value story, stakeholder map and next action.</p></aside>
-        </div>
-        <p class="note">The channel can change. The qualification standard does not.</p>
-      </div>
-    </section>
-
-    <section class="section" id="origination">
-      <div class="section-inner">
-        <div class="section-title"><h2>Agent and relationship-led origination model</h2><p>Agents, memberships and relationships can help Aryze reach the right people faster. They are useful when they create trusted access, clear context and a realistic next step.</p></div>
-        <div class="calls">
-          <article class="call"><h3>Agents as a focused origination layer</h3><p>Agents can widen access to relevant buyers and reduce cold-start friction. They should not be treated as generic lead sources.</p><ul><li>Company and buyer context</li><li>Relevant product path</li><li>Problem or use case</li><li>Route to decision-maker</li><li>Recommended next step</li></ul><div class="output"><strong>Standard:</strong> A warm introduction matters only if it creates qualified commercial movement.</div></article>
-          <article class="call"><h3>Memberships and associations</h3><p>Memberships should support ecosystem access, partner visibility and relationship-led openings across priority markets.</p><ul><li>Copenhagen Fintech</li><li>Nordic Blockchain Association</li><li>Armenia Fintech</li><li>BLI</li><li>Middle East Stablecoin Association</li></ul><div class="output"><strong>Standard:</strong> Membership value should be judged by qualified conversations, not visibility alone.</div></article>
-        </div>
-        <div class="panel comparison" style="margin-top:14px">
-          <div><span class="label">Agent quality test</span><h3>Useful introductions answer four questions.</h3><div class="mini-flow"><span>Why this account?</span><span>Why this product?</span><span>Who owns it?</span><span>By when?</span></div><p>If the team cannot answer those questions, the introduction is still unqualified activity.</p></div>
-          <div><span class="label">Commercial role</span><h3>Relationships should improve access quality.</h3><p>Agents, partners, events and memberships should create more relevant conversations, stronger buyer context and faster movement into the right product motion.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section flow-section" id="flow">
-      <div class="section-inner">
-        <div class="section-title"><h2>The commercial operating flow</h2><p>A simple map for moving serious prospects from first signal to qualified opportunity, while keeping room for focused follow-up where the customer needs more clarity.</p></div>
-        <div class="flow-board">
-          <div class="flow-head"><div><h3>Six stages. Two decision points. One progression standard.</h3><p>The flow is intentionally simple: identify the signal, qualify fit, prove relevance, align stakeholders and move forward only when ownership and the next decision are clear.</p></div><span class="flow-key">Operating map</span></div>
-          <div class="stage-track">
-            <article class="stage"><span class="num">01</span><h3>Introduction</h3><p>Agent, event, referral, inbound, campaign, or outreach creates the first signal.</p></article>
-            <article class="stage"><span class="num">02</span><h3>Digital one-pager</h3><p>The seller routes the prospect to the right product path and value story.</p></article>
-            <article class="stage"><span class="num">03</span><h3>Meeting booked</h3><p>A booked meeting is a high-intent signal, not a closed opportunity.</p></article>
-            <article class="stage"><span class="num">04</span><h3>Call 1 + decision</h3><p>Confirm fit, show the demo, then proceed, follow up, route, nurture, or disqualify.</p></article>
-            <article class="stage"><span class="num">05</span><h3>Risk + stakeholder review</h3><p>Clarify the decision path, buyer maturity and commercial risks before the opportunity slows down.</p></article>
-            <article class="stage"><span class="num">06</span><h3>Owned progression</h3><p>Move forward when scope, owner, blockers and next milestone are clear.</p></article>
-          </div>
-          <div class="branches">
-            <div class="branch"><h4>After Call 1</h4><div class="options"><span>Advance</span><span>Follow-up needed</span><span>Route product path</span><span>Nurture or disqualify</span></div></div>
-            <div class="branch"><h4>After Call 2</h4><div class="options"><span>Progress</span><span>Risk follow-up</span><span>Stakeholder follow-up</span><span>Commercial approval</span></div></div>
-          </div>
-          <div class="outcomes"><div class="outcome"><strong>Flexible where needed</strong><span>Follow-up is expected when buyer, value, risk or stakeholder clarity is needed.</span></div><div class="outcome"><strong>Strict on progression</strong><span>No opportunity should advance without product path, owner, decision point and next milestone documented.</span></div></div>
-        </div>
       </div>
     </section>
 
     <section class="section" id="products">
       <div class="section-inner">
-        <div class="section-title"><h2>One operating model. Three sales motions.</h2><p>The strategy stays consistent, but the conversation changes by product. Each product has its own buyer, value story, complexity level and progression path.</p></div>
+        <div class="section-title"><h2>Three products, three motions.</h2><p>Each product has its own ICP, buyer, cycle, proof point and priority market. Treat the cards below as the brief before every commercial conversation.</p></div>
         <div class="products">
-          <article class="product" style="--accent:var(--blue)"><span class="label">Merchant payments</span><h3>Pay by Bank</h3><p>Fastest commercial motion. Focus on payment economics, checkout friction, settlement, reconciliation, and operational control.</p><div class="motion"><strong>Sales motion</strong><span>Commercial-led &middot; demo-led &middot; payment flow review</span></div></article>
-          <article class="product" style="--accent:var(--teal)"><span class="label">Self-serve deployment</span><h3>Stablecoin Factory</h3><p>Product-led motion. Focus on use case, deployment readiness, speed to launch, and whether the customer needs simple setup or deeper infrastructure.</p><div class="motion"><strong>Sales motion</strong><span>Product-led &middot; readiness-led &middot; technical setup review</span></div></article>
-          <article class="product" style="--accent:var(--gold)"><span class="label">Institutional infrastructure</span><h3>Digital Cash</h3><p>Enterprise-led motion. Focus on governance, licence position, compliance, treasury, infrastructure, and operating model readiness.</p><div class="motion"><strong>Sales motion</strong><span>Enterprise-led &middot; stakeholder-led &middot; legal and technical review</span></div></article>
+          <article class="product" style="--accent:var(--blue)">
+            <span class="label">Pay by Bank</span>
+            <h3>UK and EU merchants with payment-driven pain.</h3>
+            <p>iGaming, betting, trading and card-under-served verticals with 100k+ tx/month and 35+ EUR average ticket, where card cost or chargeback exposure hits margin.</p>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Geography:</strong> UK live (Volt). EU/EEA late Q2 2026 via Payabl and Volt.</li>
+              <li><strong>Priority markets:</strong> UK gaming, EU iGaming, trading, VAMP-exposed merchants.</li>
+              <li><strong>Anti-ICP:</strong> Outside UK+EU. Needs payouts or AIS.</li>
+              <li><strong>Motion:</strong> Commercial-led. Demo plus savings calculator on the customer's own numbers.</li>
+              <li><strong>Cycle:</strong> 6&ndash;12 weeks SMB. 3&ndash;6 months enterprise.</li>
+            </ul>
+            <div class="motion"><strong>Real example</strong><span>Tesco Bank uses Pay by Bank for credit-card payments. ~40% volume share. ~25% rolling 12-month growth (Mastercard case).</span></div>
+          </article>
+          <article class="product" style="--accent:var(--teal)">
+            <span class="label">Stablecoin Factory</span>
+            <h3>Builders and innovation teams with a concrete use case.</h3>
+            <p>Founders, CTOs, product leads and innovation teams who want to deploy a simple stablecoin through a self-serve flow without enterprise complexity on day one.</p>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Stage:</strong> Seed&ndash;Series A founders. Internal venture for enterprises.</li>
+              <li><strong>Priority markets:</strong> Builders with validated use case. Innovation teams seeking controlled pilots.</li>
+              <li><strong>Anti-ICP:</strong> Needs full institutional operation. Route to Digital Cash.</li>
+              <li><strong>Motion:</strong> Product-led. Sandbox and docs before the first call.</li>
+              <li><strong>Cycle:</strong> Weeks to a quarter (Own Programme). One to two quarters (Partner-Led). Two quarters+ (White-Label).</li>
+            </ul>
+            <div class="motion"><strong>Real example</strong><span>No named Factory customers in canonical source. The deployment experience is the proof point until the first reference closes.</span></div>
+          </article>
+          <article class="product" style="--accent:var(--gold)">
+            <span class="label">Digital Cash</span>
+            <h3>Already-licensed institutions ready to operate.</h3>
+            <p>Banks, licensed financial institutions, fintech clusters and licensed conglomerates with a concrete settlement, treasury or liquidity use case.</p>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Licence:</strong> Must already cover digital cash or related activity.</li>
+              <li><strong>Priority markets:</strong> Tier-2/3 banks following JPM/Citi/BBVA/Santander. EMI/PI fintech clusters.</li>
+              <li><strong>Anti-ICP:</strong> Unlicensed buyer. No exec sponsor identified.</li>
+              <li><strong>Motion:</strong> Enterprise-led. The proof point is a multi-stakeholder workshop, not a demo.</li>
+              <li><strong>Cycle:</strong> 6&ndash;18 months. Phase-1 possible in 4&ndash;6 months on narrow scope.</li>
+            </ul>
+            <div class="motion"><strong>Real example</strong><span>No named Digital Cash customers in canonical source. Peer references for context only: JPM Coin, Citi Token Services, BBVA, Santander.</span></div>
+          </article>
+        </div>
+        <p class="note">An account that does not match an ICP can still be worth a conversation. Treat it as relationship work, not pipeline.</p>
+      </div>
+    </section>
+
+    <section class="section" id="personas">
+      <div class="section-inner">
+        <div class="section-title"><h2>One persona per product.</h2><p>The decision sits with one person. Selling to anyone else extends the cycle.</p></div>
+        <div class="cards-3">
+          <article class="card">
+            <span>Pay by Bank</span>
+            <h3>Payments Operations Lead</h3>
+            <p>Or Head of Payments, CFO, COO. Lives in reconciliation cycles, chargeback rates, VAMP exposure and integration drift.</p>
+            <p style="margin-top:10px"><strong>Needs to see:</strong> own numbers in the savings calculator. Honest scope on AIS and payouts.</p>
+            <p style="margin-top:6px"><strong>Kills the deal:</strong> promising AIS, standalone payouts or recurring. Unsourced conversion-lift claims.</p>
+          </article>
+          <article class="card">
+            <span>Stablecoin Factory</span>
+            <h3>Founder, CTO or Head of Product</h3>
+            <p>Shifts by motion. Own Programme: founder or CTO. Partner-Led: BD or distribution lead. White-Label: platform or product lead.</p>
+            <p style="margin-top:10px"><strong>Needs to see:</strong> sandbox and docs without gating. Motion fit confirmed before commercials.</p>
+            <p style="margin-top:6px"><strong>Kills the deal:</strong> selling Factory as lightweight Digital Cash. Promising RWA without product verification.</p>
+          </article>
+          <article class="card">
+            <span>Digital Cash</span>
+            <h3>Executive Sponsor</h3>
+            <p>CFO, COO, Chief Digital Officer. Board-adjacent. Line leadership: Treasury, Transaction Banking, Payments, Digital Assets. Decisive but not daily: CIO/CTO, CCO/MLRO, General Counsel, Risk.</p>
+            <p style="margin-top:10px"><strong>Needs to see:</strong> credible operating model. Architecture diagram. Legal pre-read. Multi-stakeholder workshop.</p>
+            <p style="margin-top:6px"><strong>Kills the deal:</strong> "live in 6 weeks". "Plug-and-play". Positioning Aryze as issuer or operator.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="markets">
+    <section class="section" id="qualification">
       <div class="section-inner">
-        <div class="section-title"><h2>Market focus should follow where Aryze has a clear right to win.</h2><p>The strategy should prioritise segments where Aryze can create measurable commercial value, not simply broad market awareness.</p></div>
-        <div class="calls">
-          <article class="call"><h3>Pay by Bank priority markets</h3><p>Focus on merchants where payment performance has direct commercial impact.</p><ul><li>Gaming and betting operators</li><li>Trading and high-frequency deposit environments</li><li>Card-under-served or higher-risk merchant categories</li><li>Businesses with settlement, chargeback or reconciliation pressure</li></ul><div class="output"><strong>Strategic intent:</strong> Turn current merchant interest into a smaller set of owned, high-fit opportunities.</div></article>
-          <article class="call"><h3>Stablecoin priority markets</h3><p>Keep Stablecoin Factory and Digital Cash separated by buyer maturity and implementation depth.</p><ul><li>Builders and product teams for Stablecoin Factory</li><li>Innovation teams seeking controlled pilots</li><li>Licensed institutions for Digital Cash</li><li>Partners with treasury, settlement, issuance or infrastructure needs</li></ul><div class="output"><strong>Strategic intent:</strong> Separate exploratory demand from serious institutional opportunities.</div></article>
+        <div class="section-title"><h2>What "qualified" means.</h2><p>Six checks. Same for every product. Without them, the lead is interest, not pipeline.</p></div>
+        <div class="cards-3">
+          <article class="card"><span>1. Use case</span><h3>One sentence the customer can repeat.</h3><p>"Exploring" is not a use case.</p></article>
+          <article class="card"><span>2. Decision owner</span><h3>Named, by title.</h3><p>The right one for the product. Digital Cash does not close without an executive sponsor.</p></article>
+          <article class="card"><span>3. Budget framing</span><h3>How the money gets found.</h3><p>Card P&amp;L impact (PbB). Motion-fit pricing (Factory). Multi-year capex/opex (Digital Cash).</p></article>
         </div>
-        <p class="note">Sales Strategy defines where Aryze should compete and how opportunities should be prioritised. Detailed handoff and onboarding requirements belong in the Sales-to-Onboarding Process.</p>
+        <div class="cards-3" style="margin-top:14px">
+          <article class="card"><span>4. Trigger event</span><h3>Why this quarter, not next year.</h3><p>VAMP threshold. Funding round. Compliance deadline. Peer move.</p></article>
+          <article class="card"><span>5. Licence position</span><h3>Customer holds the licence.</h3><p>Aryze is infrastructure, never issuer or operator. Factory and Digital Cash depend on this. PbB merchants operate under their own licence.</p></article>
+          <article class="card"><span>6. Technical capacity</span><h3>An owner who can take it forward.</h3><p>Payment owner + dev (PbB). Technical team for sandbox (Factory). Treasury+legal+compliance+tech engaged together (Digital Cash).</p></article>
+        </div>
+        <div class="matrix" style="margin-top:24px">
+          <div class="row header"><div class="cell">Product</div><div class="cell">Must answer before pitching concrete</div></div>
+          <div class="row"><div class="cell"><strong>Pay by Bank</strong></div><div class="cell">Monthly volume + AOV. Blended card fee %. Current PSP stack.</div></div>
+          <div class="row"><div class="cell"><strong>Stablecoin Factory</strong></div><div class="cell">Use case in one sentence. Stage (idea / build / live). Motion fit (Own Programme / Partner-Led / White-Label).</div></div>
+          <div class="row"><div class="cell"><strong>Digital Cash</strong></div><div class="cell">Licence status. Use case. Named executive sponsor. Expected timeline.</div></div>
+        </div>
+        <p class="note">The Factory-vs-Digital-Cash test: <em>"Simple deployment, or full institutional operation?"</em> Simple goes to Factory. Full goes to Digital Cash.</p>
+      </div>
+    </section>
+
+    <section class="section" id="channels">
+      <div class="section-inner">
+        <div class="section-title"><h2>Channels feed the pipeline.</h2><p>The channel decides warmth. The qualification standard decides whether it becomes pipeline.</p></div>
+        <div class="entry-layout">
+          <div class="entry-grid">
+            <article class="entry"><strong>Agents</strong><span>Warm introductions when buyer context is clear.</span></article>
+            <article class="entry"><strong>Memberships</strong><span>Copenhagen Fintech, Nordic Blockchain Association, BLI, Middle East Stablecoin Association.</span></article>
+            <article class="entry"><strong>Conferences</strong><span>SBC, NBC Stockholm, Token2049, Sibos, Money20/20.</span></article>
+            <article class="entry"><strong>Direct outreach</strong><span>Targeted segment work, especially Pay by Bank merchant verticals.</span></article>
+            <article class="entry"><strong>Inbound</strong><span>Web, savings calculator, sandbox, content. Still requires qualification.</span></article>
+            <article class="entry"><strong>Self-serve funnel</strong><span>Stablecoin Factory sandbox and docs as a product-led entry point.</span></article>
+          </div>
+          <aside class="entry-target"><span class="label">Routing point</span><h3>Segment-specific path.</h3><p>Each channel routes into the right product motion, value story and next action.</p></aside>
+        </div>
+        <p class="note">An agent introduction is useful only if it answers four questions: why this account, why this product, who owns it, by when.</p>
+      </div>
+    </section>
+
+    <section class="section flow-section" id="flow">
+      <div class="section-inner">
+        <div class="section-title"><h2>Sales process: signal to commitment.</h2><p>Six stages from first signal to commercial commitment. Where the strategy ends, the <a href="./sales-onboarding.html" style="color:#fff;text-decoration:underline">Sales-to-Onboarding Process</a> takes over.</p></div>
+        <div class="flow-board">
+          <div class="flow-head"><div><h3>Six stages. Two decision points.</h3><p>Identify, qualify, prove relevance, align stakeholders, advance only when ownership and next decision are clear.</p></div><span class="flow-key">Sales process</span></div>
+          <div class="stage-track">
+            <article class="stage"><span class="num">01</span><h3>Introduction</h3><p>Agent, event, referral, inbound or outreach creates the first signal.</p></article>
+            <article class="stage"><span class="num">02</span><h3>Routing</h3><p>Seller sends the relevant one-pager or sandbox link.</p></article>
+            <article class="stage"><span class="num">03</span><h3>Meeting booked</h3><p>A high-intent signal, not yet a qualified opportunity.</p></article>
+            <article class="stage"><span class="num">04</span><h3>Call 1 + decision</h3><p>Confirm fit. Discovery. Demo or sandbox. Advance, follow up, route, nurture or disqualify.</p></article>
+            <article class="stage"><span class="num">05</span><h3>Stakeholder review</h3><p>Decision path, buyer maturity, commercial risks.</p></article>
+            <article class="stage"><span class="num">06</span><h3>Commercial commitment</h3><p>Customer agrees a concrete next step. Onboarding starts.</p></article>
+          </div>
+          <div class="outcomes"><div class="outcome"><strong>Flexible where needed</strong><span>Follow-ups are expected when buyer, value, risk or stakeholder clarity is needed.</span></div><div class="outcome"><strong>Strict on progression</strong><span>No opportunity advances without product path, owner and next milestone.</span></div></div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="pipeline">
       <div class="section-inner">
-        <div class="section-title"><h2>Pipeline strategy is about selection, ownership and movement.</h2><p>The pipeline should not be managed as a list of names. It should show where Aryze has credible fit, who owns the next step and which opportunities deserve management attention.</p></div>
+        <div class="section-title"><h2>Pipeline rules.</h2><p>The pipeline is not a list of names. It shows where Aryze has credible fit, who owns the next step, and which opportunities deserve management attention.</p></div>
         <div class="gates">
-          <article class="gate"><span class="gate-num">01</span><div><span class="label">Prioritise</span><h3>Fit before volume</h3></div><p>Lead volume matters only when the customer problem, buyer maturity and product path are credible.</p><div class="gate-rule"><strong>Management rule</strong><span>Review quality of fit before celebrating activity.</span></div></article>
-          <article class="gate"><span class="gate-num">02</span><div><span class="label">Segment</span><h3>One product path per opportunity</h3></div><div><p>Every serious opportunity should be routed to the product motion that best matches the customer problem.</p><ul class="criteria"><li>Pay by Bank</li><li>Stablecoin Factory</li><li>Digital Cash</li><li>Partner or ecosystem path</li></ul></div><div class="gate-rule"><strong>Management rule</strong><span>Mixed messaging weakens progression and accountability.</span></div></article>
-          <article class="gate"><span class="gate-num">03</span><div><span class="label">Own</span><h3>Named owner and next date</h3></div><p>A serious opportunity needs one accountable owner, one next action and one date for review.</p><div class="gate-rule"><strong>Management rule</strong><span>No owner means no managed pipeline.</span></div></article>
-          <article class="gate"><span class="gate-num">04</span><div><span class="label">Progress</span><h3>Movement over optimism</h3></div><div><p>Progress should be visible through stage movement, customer commitment or a documented decision.</p><ul class="criteria"><li>Discovery completed</li><li>Demo completed</li><li>Scoping started</li><li>Commercial next step agreed</li></ul></div><div class="gate-rule"><strong>Management rule</strong><span>If an opportunity does not move, it should be reset, nurtured or closed.</span></div></article>
+          <article class="gate"><span class="gate-num">01</span><div><span class="label">Prioritise</span><h3>Fit before volume</h3></div><p>Lead volume matters only when problem, buyer and product path are credible.</p><div class="gate-rule"><strong>Rule</strong><span>Quality of fit before activity.</span></div></article>
+          <article class="gate"><span class="gate-num">02</span><div><span class="label">Segment</span><h3>One product path</h3></div><p>Every opportunity routes to the motion that matches the problem. Mixed messaging weakens progression.</p><div class="gate-rule"><strong>Rule</strong><span>One product per opportunity.</span></div></article>
+          <article class="gate"><span class="gate-num">03</span><div><span class="label">Own</span><h3>Named owner, dated next step</h3></div><p>One accountable owner. One next action. One date for review.</p><div class="gate-rule"><strong>Rule</strong><span>No owner means no managed pipeline.</span></div></article>
+          <article class="gate"><span class="gate-num">04</span><div><span class="label">Progress</span><h3>Movement over optimism</h3></div><p>Progress is stage movement, customer commitment or a documented decision. Not a hope.</p><div class="gate-rule"><strong>Rule</strong><span>No movement in 30 days: reset, nurture or close.</span></div></article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="next-steps">
+    <section class="section" id="objections">
       <div class="section-inner">
-        <div class="section-title"><h2>Strategic priorities for the next commercial cycle.</h2><p>The strategy should keep the team focused on fewer, better opportunities and make it obvious where commercial effort should go next.</p></div>
-        <div class="matrix">
-          <div class="row header"><div class="cell">Priority</div><div class="cell">Strategic role</div><div class="cell">Commercial focus</div><div class="cell">Success signal</div></div>
-          <div class="row"><div class="cell"><strong>Pay by Bank</strong><em>Near-term revenue motion</em></div><div class="cell">Convert high-fit merchant interest.</div><div class="cell">Prioritise payment-driven verticals where settlement speed, reconciliation and payment performance matter commercially.</div><div class="cell">Fewer, stronger merchant opportunities moving through owned next steps.</div></div>
-          <div class="row"><div class="cell"><strong>Stablecoin Factory</strong><em>Controlled validation motion</em></div><div class="cell">Validate demand privately.</div><div class="cell">Focus on builders and product teams with a concrete use case and a clear need for simple deployment.</div><div class="cell">Qualified private walkthroughs and evidence of repeatable demand.</div></div>
-          <div class="row"><div class="cell"><strong>Digital Cash</strong><em>Institutional infrastructure motion</em></div><div class="cell">Progress serious institutional tracks.</div><div class="cell">Prioritise licensed institutions with settlement, treasury, issuance or infrastructure requirements.</div><div class="cell">Scoping, proposal, sandbox or partner discussions with real institutional owners.</div></div>
-          <div class="row"><div class="cell"><strong>Events and agents</strong><em>Distribution layer</em></div><div class="cell">Improve access quality.</div><div class="cell">Use live market activity and agent networks to create relevant, routed introductions rather than unmanaged lead volume.</div><div class="cell">Introductions with product fit, buyer context, owner and date.</div></div>
+        <div class="section-title"><h2>Top objections.</h2><p>The three we hear most often, per product. The team should answer all three without rehearsing.</p></div>
+        <div class="products">
+          <article class="product" style="--accent:var(--blue)">
+            <span class="label">Pay by Bank</span>
+            <h3>Three to expect.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>"We already have an open-banking provider."</strong> Acknowledge. Pivot to the specific job their provider does not fill: theming, pricing, market depth.</li>
+              <li><strong>"Our chargeback rate is fine."</strong> Ask the number. Reference VAMP April 2026 (1.5% threshold, acquirers hold at 0.5&ndash;0.7%).</li>
+              <li><strong>"What about payouts?"</strong> Direct. Not productised today. Aryze covers deposits, top-ups and customer funding.</li>
+            </ul>
+          </article>
+          <article class="product" style="--accent:var(--teal)">
+            <span class="label">Stablecoin Factory</span>
+            <h3>Three to expect.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>"Why Aryze and not Fireblocks, Circle or Brale?"</strong> Acknowledge. Pivot to self-serve speed plus path upward to Digital Cash.</li>
+              <li><strong>"Can Aryze issue the stablecoin?"</strong> Direct no. Customer is issuer.</li>
+              <li><strong>"We need settlement, treasury and ramps day one."</strong> Re-route to Digital Cash.</li>
+            </ul>
+          </article>
+          <article class="product" style="--accent:var(--gold)">
+            <span class="label">Digital Cash</span>
+            <h3>Three to expect.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>"Why not build internally?"</strong> Acknowledge. 12&ndash;24 months and 5+ FTEs reality. Frame Aryze as a partnership, not a replacement.</li>
+              <li><strong>"How do we know this is regulator-friendly?"</strong> Frame the model. Institution remains issuer and operator. Offer MLRO and GC workshop.</li>
+              <li><strong>"How fast can we be live?"</strong> Honest 6&ndash;18 months. Phase-1 in 4&ndash;6 months on narrow scope.</li>
+            </ul>
+          </article>
         </div>
-        <p class="note">This page defines the strategic direction. The April Sales Report records what happened in April. The Sales-to-Onboarding Process defines how qualified customers move into onboarding.</p>
       </div>
     </section>
-
-    <section class="section" id="scorecard"><div class="section-inner"><div class="section-title"><h2>How management should judge the strategy.</h2><p>The strategy should be measured by the quality of movement, not the volume of activity. The right scorecard makes weak pipeline visible early.</p></div><div class="metrics"><article class="card metric"><h3>Pipeline quality</h3><ul><li>Product path assigned</li><li>Buyer problem clear</li><li>Owner and next date visible</li><li>Stage reason documented</li></ul></article><article class="card metric"><h3>Commercial movement</h3><ul><li>Qualified meetings created</li><li>Demos completed</li><li>Scoping conversations started</li><li>Low-fit opportunities removed</li></ul></article><article class="card metric"><h3>Market signal</h3><ul><li>Repeatable Pay by Bank merchant pain</li><li>Factory demand with clear use cases</li><li>Digital Cash interest from licensed institutions</li><li>Agent introductions with real buyer context</li></ul></article><article class="card metric"><h3>Decision question</h3><p>Are we concentrating commercial time on the opportunities where Aryze has the strongest right to win?</p></article></div></div></section>
 
     <section class="section" id="source-material">
       <div class="section-inner">
-        <div class="section-title"><h2>Strategy source material</h2><p>Reference documents for segment logic, product positioning and qualification. They support this strategy; they are not part of the April report.</p></div>
+        <div class="section-title"><h2>Source material</h2><p>Reference documents for ICP, segments, product positioning and qualification.</p></div>
         <details>
           <summary>View source documents</summary>
           <div class="matrix">
-          <div class="row header"><div class="cell">Document</div><div class="cell">Role</div><div class="cell">Use</div><div class="cell">Open</div></div>
-          <div class="row"><div class="cell"><strong>Aryze Sales Analysis</strong></div><div class="cell">Sales model</div><div class="cell">Supports prioritisation, qualification and commercial decision-making.</div><div class="cell"><a class="doc-link" href="../docs/sales-analysis.pdf">Open</a></div></div>
-          <div class="row"><div class="cell"><strong>Customer Segment Analysis</strong></div><div class="cell">Segment logic</div><div class="cell">Defines the commercial environments where each product fits.</div><div class="cell"><a class="doc-link" href="./docs/customer-segment-analysis-v2.pdf">Open</a></div></div>
-          <div class="row"><div class="cell"><strong>Ideal Customer Profiles</strong></div><div class="cell">ICP</div><div class="cell">Clarifies best-fit customers, buying signals and poor-fit accounts.</div><div class="cell"><a class="doc-link" href="./docs/ideal-customer-profiles-v2.pdf">Open</a></div></div>
-          <div class="row"><div class="cell"><strong>Product Suite Master Description</strong></div><div class="cell">Product structure</div><div class="cell">Explains how Pay by Bank, Stablecoin Factory and Digital Cash work as one suite.</div><div class="cell"><a class="doc-link" href="./docs/product-suite-master-description-v2.pdf">Open</a></div></div>
-          <div class="row"><div class="cell"><strong>Value Proposition Canvas</strong></div><div class="cell">Positioning</div><div class="cell">Connects customer pains, gains and buying logic to the product value story.</div><div class="cell"><a class="doc-link" href="./docs/value-proposition-canvas-v2.pdf">Open</a></div></div>
+          <div class="row header"><div class="cell">Document</div><div class="cell">Role</div><div class="cell">Open</div></div>
+          <div class="row"><div class="cell"><strong>Aryze Sales Analysis</strong></div><div class="cell">Sales model</div><div class="cell"><a class="doc-link" href="../docs/sales-analysis.pdf">Open</a></div></div>
+          <div class="row"><div class="cell"><strong>Customer Segment Analysis</strong></div><div class="cell">Segment logic</div><div class="cell"><a class="doc-link" href="./docs/customer-segment-analysis-v2.pdf">Open</a></div></div>
+          <div class="row"><div class="cell"><strong>Ideal Customer Profiles</strong></div><div class="cell">ICP</div><div class="cell"><a class="doc-link" href="./docs/ideal-customer-profiles-v2.pdf">Open</a></div></div>
+          <div class="row"><div class="cell"><strong>Product Suite Master Description</strong></div><div class="cell">Product structure</div><div class="cell"><a class="doc-link" href="./docs/product-suite-master-description-v2.pdf">Open</a></div></div>
+          <div class="row"><div class="cell"><strong>Value Proposition Canvas</strong></div><div class="cell">Positioning</div><div class="cell"><a class="doc-link" href="./docs/value-proposition-canvas-v2.pdf">Open</a></div></div>
           </div>
         </details>
       </div>

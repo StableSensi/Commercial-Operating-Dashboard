@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{MONTH}} Sales Report | Aryze</title>
+  <meta name="description" content="{{MONTH}} {{YEAR}} sales report covering Aryze commercial pipeline across Pay by Bank, Stablecoin Factory and Digital Cash.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+
+  <!--
+  =====================================================================
+  ARYZE REPORT TEMPLATE — Canonical 8-section structure
+  =====================================================================
+  This template is the gold standard for every Aryze report (monthly,
+  event, quarterly, post-mortem). All three of these existing reports
+  share the same eight sections and the same anchor IDs:
+
+    1. Hero (cover)         #top
+    2. Position             #position
+    3. Findings             #findings
+    4. Breakdown            #breakdown
+    5. Priorities           #priorities
+    6. Roadmap              #roadmap
+    7. Risks                #risks
+    8. Close                #close
+
+  How to use:
+  1. Copy this file to ./{{month}}-sales-report.html (lowercase month,
+     e.g. may-sales-report.html), or to ./<event>-report/index.html
+     for an event readout.
+  2. Find/replace all {{PLACEHOLDERS}} with actual numbers.
+  3. Add a card to ../index.html in the "Reports" group, linking to
+     the new file.
+  4. Update data-pay-bank-leads and data-stablecoin-opportunities on
+     the card so the dashboard snapshot stays accurate.
+
+  Required placeholders:
+  - {{MONTH}}            e.g. "May" (capitalised)
+  - {{MONTH_LOWER}}      e.g. "may" (used in filenames, not in text)
+  - {{YEAR}}             e.g. "2026"
+  - {{NEXT_MONTH}}       e.g. "June" (capitalised)
+  - {{PB_LEADS}}         Pay by Bank active leads count (e.g. 23)
+  - {{SC_LEADS}}         Stablecoin (Factory + Digital Cash) leads/opps count
+  - {{TOTAL_PIPELINE}}   = {{PB_LEADS}} + {{SC_LEADS}}
+  - {{SC_BACKLOG}}       Stablecoin backlog count
+  - {{SC_NEW}}           Stablecoin new count
+  - {{SC_SCREENING}}     Stablecoin screening count
+  - {{SC_PROPOSAL}}      Stablecoin proposal count
+  - {{SC_BACKLOG_PCT}}, {{SC_NEW_PCT}}, {{SC_SCREENING_PCT}},
+    {{SC_PROPOSAL_PCT}}  Percentages for the stage bars (max 100)
+
+  Section rules:
+  - Sections #1, #2, #3, #4, #5, #8 are MANDATORY for every report.
+  - #6 Roadmap is OPTIONAL — remove the whole <section id="roadmap">
+    block if not applicable this month (e.g. a quiet monthly readout
+    with no time-based plan).
+  - #7 Risks is OPTIONAL — remove the whole <section id="risks">
+    block if there are no open risks worth surfacing. Keep it for
+    event readouts and quarterly reports.
+  - When removing an optional section, also remove the matching <a>
+    in the topbar nav so the anchor list stays clean.
+
+  Notes:
+  - All text below is a starting point. Replace observation prose
+    with what actually happened this month. Do NOT keep last
+    month's narrative.
+  - Never invent numbers. If unknown, leave the placeholder visible
+    so the gap is obvious before the report is shared.
+  - Use the `.matrix` grid instead of any <table>. Use `.cards-3`,
+    `.products` and `.decision-grid` from the unified styles.css —
+    do not invent new classes.
+  =====================================================================
+  -->
+
+  <style>
+    .stage-list { display: grid; gap: 10px; margin: 14px 0 0; padding: 0; list-style: none; }
+    .stage-row { display: grid; grid-template-columns: 110px 1fr 32px; gap: 12px; align-items: center; }
+    .stage-row span:first-child { color: var(--slate); font-size: 13px; font-weight: 720; }
+    .stage-row strong { color: var(--ink); font-size: 15px; font-weight: 820; text-align: right; }
+    .stage-bar { position: relative; height: 8px; overflow: hidden; border-radius: 999px; background: var(--soft); }
+    .stage-bar span { display: block; width: var(--bar); height: 100%; background: linear-gradient(90deg, var(--teal), var(--blue)); border-radius: inherit; }
+    @media (max-width: 680px) {
+      .stage-row { grid-template-columns: 90px 1fr 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html#dashboard" aria-label="Aryze Commercial Workspace"><img class="brand-logo" src="../assets/aryze-logo-wordmark.png" alt="Aryze"><span><small>Commercial Workspace</small></span></a>
+    <nav class="nav">
+      <a href="../index.html#dashboard">Dashboard</a>
+      <a href="#top">Overview</a>
+      <a href="#position">Position</a>
+      <a href="#findings">Findings</a>
+      <a href="#breakdown">Breakdown</a>
+      <a href="#priorities">Priorities</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#risks">Risks</a>
+      <a href="#close">Close</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- 1. HERO ============================================================ -->
+    <section class="section cover">
+      <div class="section-inner">
+        <div class="cover-top">
+          <div>
+            <p class="eyebrow">Aryze &middot; Sales Report &middot; {{MONTH}} {{YEAR}}</p>
+            <h1>{{MONTH}} Sales Report</h1>
+            <p class="subtitle">{{MONTH}} closed with two visible commercial tracks: <strong>{{PB_LEADS}} Pay by Bank leads</strong> and <strong>{{SC_LEADS}} Stablecoin leads and opportunities</strong>.</p>
+            <p class="meta">Aryze commercial pipeline &middot; {{MONTH}} {{YEAR}} monthly readout</p>
+          </div>
+        </div>
+        <p class="copy">This report tracks {{MONTH}} pipeline position, product-level signals and the follow-up actions needed after the monthly readout. It is not a strategy document &mdash; for that, see <a href="./sales-strategy.html">Sales Strategy</a>.</p>
+        <div class="brief-strip" aria-label="Executive brief">
+          <article><span>Total pipeline</span><strong>{{TOTAL_PIPELINE}} active leads + opps</strong></article>
+          <article><span>Pay by Bank</span><strong>{{PB_LEADS}} active leads</strong></article>
+          <article><span>Stablecoin</span><strong>{{SC_LEADS}} active leads + opps</strong></article>
+          <article><span>Main next action</span><strong>[Fill in: the single biggest priority for {{NEXT_MONTH}}]</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. POSITION ======================================================== -->
+    <section class="section" id="position">
+      <div class="section-inner">
+        <div class="section-title"><h2>Where we stand.</h2><p>{{MONTH}} snapshot of each product track. Status of the commercial position, not a forecast.</p></div>
+
+        <div class="cards-3">
+          <article class="card" style="--accent:var(--blue)">
+            <span>Pay by Bank</span>
+            <h3>{{PB_LEADS}} active leads</h3>
+            <p>[Fill in: 1&ndash;2 sentences on where the strongest {{MONTH}} fit appeared.]</p>
+            <p class="note" style="margin-top:14px"><strong>{{MONTH}} status:</strong> [Fill in: e.g. "Active merchant lead base established"].</p>
+          </article>
+          <article class="card" style="--accent:var(--teal)">
+            <span>Stablecoin</span>
+            <h3>{{SC_LEADS}} active leads + opps</h3>
+            <p>[Fill in: 1&ndash;2 sentences on Stablecoin Factory + Digital Cash maturity this month.]</p>
+            <p class="note" style="margin-top:14px"><strong>Current split:</strong> {{SC_BACKLOG}} backlog &middot; {{SC_NEW}} new &middot; {{SC_SCREENING}} screening &middot; {{SC_PROPOSAL}} proposal.</p>
+          </article>
+          <article class="card" style="--accent:var(--gold)">
+            <span>Forward look</span>
+            <h3>{{NEXT_MONTH}} priority</h3>
+            <p>[Fill in: the one priority that drives {{NEXT_MONTH}}. Concrete &mdash; e.g. "Convert 6 screening leads to qualified discovery calls".]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FINDINGS ======================================================== -->
+    <section class="section" id="findings">
+      <div class="section-inner">
+        <div class="section-title"><h2>What {{MONTH}} showed.</h2><p>The three observations that should change behaviour next month, not generic patterns.</p></div>
+
+        <div class="cards-3">
+          <article class="card">
+            <span>Finding 1</span>
+            <h3>[Headline of the finding]</h3>
+            <p>[Fill in: what specifically happened, what it teaches, what changes next month.]</p>
+          </article>
+          <article class="card">
+            <span>Finding 2</span>
+            <h3>[Headline of the finding]</h3>
+            <p>[Fill in.]</p>
+          </article>
+          <article class="card">
+            <span>Finding 3</span>
+            <h3>[Headline of the finding]</h3>
+            <p>[Fill in.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BREAKDOWN ======================================================= -->
+    <section class="section" id="breakdown">
+      <div class="section-inner">
+        <div class="section-title"><h2>Breakdown.</h2><p>Route-by-route detail. {{MONTH}} activity separated into a Pay by Bank merchant track and a Stablecoin (Factory + Digital Cash) lead and opportunity pool.</p></div>
+
+        <div class="matrix">
+          <div class="row header"><div class="cell">Route</div><div class="cell">Current position</div><div class="cell">What {{MONTH}} showed</div><div class="cell">{{MONTH}} learning</div></div>
+          <div class="row">
+            <div class="cell"><strong>Pay by Bank</strong><em>UK + EU merchants</em></div>
+            <div class="cell">{{PB_LEADS}} merchant leads in pipeline.</div>
+            <div class="cell">[Fill in: where the strongest {{MONTH}} fit appeared &mdash; vertical, market, trigger event.]</div>
+            <div class="cell">[Fill in: what {{MONTH}} taught about the Pay by Bank merchant base.]</div>
+          </div>
+          <div class="row">
+            <div class="cell"><strong>Stablecoin Factory</strong><em>Builder + innovation</em></div>
+            <div class="cell">[Fill in: Factory subset of the {{SC_LEADS}} Stablecoin pool.]</div>
+            <div class="cell">[Fill in: the {{MONTH}} Factory signal &mdash; sandbox traffic, motion-fit conversations.]</div>
+            <div class="cell">[Fill in: what {{MONTH}} taught about Factory demand &mdash; quality vs curiosity.]</div>
+          </div>
+          <div class="row">
+            <div class="cell"><strong>Digital Cash</strong><em>Institutional</em></div>
+            <div class="cell">[Fill in: Digital Cash subset of the {{SC_LEADS}} Stablecoin pool.]</div>
+            <div class="cell">[Fill in: workshop bookings, executive-sponsor identification, RFP activity.]</div>
+            <div class="cell">[Fill in: institutional appetite, licence positioning, multi-stakeholder readiness.]</div>
+          </div>
+        </div>
+
+        <div class="products" style="margin-top:24px">
+          <article class="product" style="--accent:var(--blue)">
+            <span class="label">Pay by Bank</span>
+            <h3>{{MONTH}} signal: [headline]</h3>
+            <p>[Fill in: 2&ndash;3 sentences. Buyer pain themes, vertical concentration, deal-killer patterns.]</p>
+            <div class="motion">
+              <strong>Best-fit customers</strong>
+              <span>[Fill in: which segments produced strongest fit this month.]</span>
+            </div>
+            <div class="motion">
+              <strong>What the buyer wants</strong>
+              <span>[Fill in: the actual jobs/pains expressed by buyers this month.]</span>
+            </div>
+            <div class="motion">
+              <strong>{{MONTH}} result</strong>
+              <span>[Fill in: {{PB_LEADS}} merchant leads &mdash; what they collectively prove.]</span>
+            </div>
+          </article>
+
+          <article class="product" style="--accent:var(--teal)">
+            <span class="label">Stablecoin Factory</span>
+            <h3>{{MONTH}} signal: [headline]</h3>
+            <p>[Fill in: 2&ndash;3 sentences. Factory demand patterns this month &mdash; sandbox traffic, motion-fit, RWA inquiries.]</p>
+            <div class="motion">
+              <strong>Best-fit customers</strong>
+              <span>[Fill in: which builder/innovation profiles produced strongest fit.]</span>
+            </div>
+            <div class="motion">
+              <strong>What the buyer wants</strong>
+              <span>[Fill in: actual asks &mdash; speed, deployment depth, support level, upgrade path.]</span>
+            </div>
+            <div class="motion">
+              <strong>{{MONTH}} result</strong>
+              <span>[Fill in: where Factory demand sits in the {{SC_LEADS}} Stablecoin pool.]</span>
+            </div>
+          </article>
+
+          <article class="product" style="--accent:var(--gold)">
+            <span class="label">Digital Cash</span>
+            <h3>{{MONTH}} signal: [headline]</h3>
+            <p>[Fill in: 2&ndash;3 sentences. Institutions engaged, executive sponsors identified, multi-stakeholder readiness.]</p>
+            <div class="motion">
+              <strong>Best-fit customers</strong>
+              <span>[Fill in: which licensed institutions or fintech clusters engaged.]</span>
+            </div>
+            <div class="motion">
+              <strong>What the buyer wants</strong>
+              <span>[Fill in: actual institutional asks &mdash; settlement, treasury, multi-currency.]</span>
+            </div>
+            <div class="motion">
+              <strong>{{MONTH}} result</strong>
+              <span>[Fill in: institutional position in the {{SC_LEADS}} Stablecoin pool.]</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="cards-3" style="margin-top:24px">
+          <article class="card">
+            <span>Stablecoin stage reading</span>
+            <h3>Where the {{SC_LEADS}} sit.</h3>
+            <ul class="stage-list">
+              <li class="stage-row"><span>Backlog</span><div class="stage-bar"><span style="--bar: {{SC_BACKLOG_PCT}}%"></span></div><strong>{{SC_BACKLOG}}</strong></li>
+              <li class="stage-row"><span>New</span><div class="stage-bar"><span style="--bar: {{SC_NEW_PCT}}%"></span></div><strong>{{SC_NEW}}</strong></li>
+              <li class="stage-row"><span>Screening</span><div class="stage-bar"><span style="--bar: {{SC_SCREENING_PCT}}%"></span></div><strong>{{SC_SCREENING}}</strong></li>
+              <li class="stage-row"><span>Proposal</span><div class="stage-bar"><span style="--bar: {{SC_PROPOSAL_PCT}}%"></span></div><strong>{{SC_PROPOSAL}}</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <span>Activity sources</span>
+            <h3>Where {{MONTH}} activity came from.</h3>
+            <p>[Fill in: agents, events, direct outreach, inbound, memberships, relationships &mdash; which actually produced movement.]</p>
+          </article>
+          <article class="card">
+            <span>Communication lesson</span>
+            <h3>What language worked.</h3>
+            <p>[Fill in: which product was easier or harder to talk about this month. What killed momentum.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PRIORITIES ====================================================== -->
+    <section class="section" id="priorities">
+      <div class="section-inner">
+        <div class="section-title"><h2>Where to focus next.</h2><p>Concrete next steps that follow from the {{MONTH}} readout. Owner and date for every item.</p></div>
+
+        <div class="cards-3">
+          <article class="card">
+            <span>Pay by Bank</span>
+            <h3>[Headline action]</h3>
+            <p>[Fill in: specific action for the {{PB_LEADS}} active merchant leads.]</p>
+            <p class="note" style="margin-top:14px"><strong>Owner:</strong> [Name] &middot; <strong>By:</strong> [Date]</p>
+          </article>
+          <article class="card">
+            <span>Stablecoin Factory + Digital Cash</span>
+            <h3>[Headline action]</h3>
+            <p>[Fill in: separation of Factory-fit items from Digital Cash candidates in the {{SC_LEADS}} pool.]</p>
+            <p class="note" style="margin-top:14px"><strong>Owner:</strong> [Name] &middot; <strong>By:</strong> [Date]</p>
+          </article>
+          <article class="card">
+            <span>Low-fit activity</span>
+            <h3>[Headline action]</h3>
+            <p>[Fill in: how weak or unclear opportunities will be moved to nurture, pause or close.]</p>
+            <p class="note" style="margin-top:14px"><strong>Owner:</strong> [Name] &middot; <strong>By:</strong> [Date]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      6. ROADMAP — OPTIONAL
+      Remove this entire <section id="roadmap"> block (and the topbar anchor)
+      if this report has no time-based plan worth showing.
+      Keep it for event readouts and any report where 0-48h / Week 2 / Week 3-4
+      cadence applies. For monthly reports, you can reuse the Wk N format.
+    -->
+    <section class="section" id="roadmap">
+      <div class="section-inner">
+        <div class="section-title"><h2>When things happen.</h2><p>Time-based plan from {{MONTH}} closure to {{NEXT_MONTH}} review.</p></div>
+
+        <div class="cards-3">
+          <article class="card"><span>0-48 hours</span><h3>Lock {{MONTH}} readout</h3><p>[Fill in: who confirms owner + dated next step for every active opp.]</p></article>
+          <article class="card"><span>Week 1</span><h3>{{NEXT_MONTH}} kickoff</h3><p>[Fill in: pipeline cleanup, source review, stage discipline check.]</p></article>
+          <article class="card"><span>Week 2</span><h3>Discovery cycle</h3><p>[Fill in: discovery calls booked for screening-stage Stablecoin leads.]</p></article>
+        </div>
+        <div class="cards-3" style="margin-top:14px">
+          <article class="card"><span>Week 3</span><h3>Mid-month checkpoint</h3><p>[Fill in: progress against {{NEXT_MONTH}} priorities.]</p></article>
+          <article class="card"><span>Week 4</span><h3>Pre-readout</h3><p>[Fill in: stage movement vs activity volume.]</p></article>
+          <article class="card"><span>Month-end</span><h3>{{NEXT_MONTH}} readout</h3><p>[Fill in: management review date and decision points.]</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      7. RISKS — OPTIONAL
+      Remove this entire <section id="risks"> block (and the topbar anchor)
+      if there are no open risks worth surfacing. Keep it for event readouts
+      and any month where a risk needs commercial leadership attention.
+    -->
+    <section class="section" id="risks">
+      <div class="section-inner">
+        <div class="section-title"><h2>Risks and open points.</h2><p>What management should attend to before {{NEXT_MONTH}}.</p></div>
+
+        <div class="cards-3">
+          <article class="card">
+            <span>Risk 1</span>
+            <h3>[Headline]</h3>
+            <p>[Fill in: the specific risk &mdash; "Stablecoin Factory has 6 screening leads but no qualified discovery calls" beats "stage maturity issues".]</p>
+          </article>
+          <article class="card">
+            <span>Risk 2</span>
+            <h3>[Headline]</h3>
+            <p>[Fill in.]</p>
+          </article>
+          <article class="card">
+            <span>Risk 3</span>
+            <h3>[Headline]</h3>
+            <p>[Fill in.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CLOSE =========================================================== -->
+    <section class="section" id="close">
+      <div class="section-inner">
+        <div class="section-title"><h2>{{NEXT_MONTH}} decision summary.</h2><p>[Fill in: concluding recommendation in one sentence.]</p></div>
+
+        <div class="decision-grid" aria-label="Decision summary">
+          <article>
+            <span>Decision</span>
+            <strong>[Headline decision]</strong>
+            <p>[Fill in: the one commitment {{NEXT_MONTH}} is built around.]</p>
+          </article>
+          <article>
+            <span>Owner</span>
+            <strong>[Name]</strong>
+            <p>[Fill in: accountability &mdash; who reports stage movement at the {{NEXT_MONTH}} readout.]</p>
+          </article>
+          <article>
+            <span>Target</span>
+            <strong>[Numeric target]</strong>
+            <p>[Fill in: what success looks like &mdash; e.g. "2-3 qualified pilot tracks within 4 weeks".]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

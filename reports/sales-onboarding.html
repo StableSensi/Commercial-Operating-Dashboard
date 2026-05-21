@@ -7,278 +7,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <script src="../site-auth.js" defer></script>
-  <style>
-    :root {
-      --ink: #001e2b;
-      --navy: #001e2b;
-      --slate: #274454;
-      --muted: #52636d;
-      --line: #b8c1c7;
-      --paper: #f7f9fa;
-      --panel: #ffffff;
-      --soft: #e3e8eb;
-      --teal: #007599;
-      --blue: #007599;
-      --gold: #bfd9ef;
-      --accent: #007599;
-      --shadow-soft: 0 10px 26px rgba(0, 30, 43, 0.06);
-      --radius: 8px;
-      font-family: Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 104px; }
-    body { margin: 0; color: var(--ink); background: var(--paper); letter-spacing: 0; }
-    a { color: inherit; text-decoration: none; }
-    h1, h2, h3, p { overflow-wrap: anywhere; }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      width: min(1180px, calc(100% - 32px));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin: 16px auto 0;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 18px 48px rgba(0, 30, 43, 0.08);
-    }
-
-    .brand { display: flex; align-items: center; gap: 10px; color: var(--navy); font-weight: 760; }
-    .brand-logo { display: block; width: 88px; height: auto; }
-    .brand small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 760; }
-
-    .nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 3px; color: var(--muted); font-size: 13px; font-weight: 680; }
-    .nav a { padding: 8px 9px; border-radius: var(--radius); }
-    .nav a:hover { background: var(--panel); color: var(--ink); }
-    .nav a[href*="dashboard"] { color: var(--ink); font-weight: 920; }
-
-    .section { scroll-margin-top: 104px; padding: clamp(58px, 7vw, 92px) clamp(16px, 5vw, 64px); }
-    .section-inner { width: min(1160px, 100%); margin: 0 auto; }
-
-    .cover {
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(184, 193, 199, .36) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(184, 193, 199, .28) 1px, transparent 1px),
-        linear-gradient(180deg, #ffffff 0%, #f7f9fa 100%);
-      background-size: 72px 72px, 72px 72px, auto;
-    }
-
-    .cover-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 28px;
-      align-items: end;
-    }
-
-    .eyebrow {
-      margin: 0 0 14px;
-      color: var(--teal);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    h1 { max-width: 850px; margin: 0; font-size: clamp(42px, 6.8vw, 78px); line-height: .98; }
-    .subtitle { max-width: 760px; margin: 18px 0 0; color: var(--slate); font-size: clamp(18px, 2.1vw, 24px); line-height: 1.35; font-weight: 620; }
-    .meta { margin: 18px 0 0; color: #8b95a7; font-size: 13px; font-weight: 680; }
-    .copy { max-width: 930px; margin: 30px 0 0; color: var(--slate); font-size: 17px; line-height: 1.55; }
-
-    .doc-link {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 13px;
-      border: 1px solid #c5ccd8;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.92);
-      color: var(--navy);
-      font-size: 13px;
-      font-weight: 760;
-      white-space: nowrap;
-    }
-
-    .cards-3, .products, .calls, .followups, .readiness, .metrics {
-      display: grid;
-      gap: 14px;
-    }
-    .cards-3, .products { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .calls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .followups, .readiness, .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-    .card, .panel, .product, .call, .gate, .role, .appendix {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .card, .product, .call, .role, .appendix { padding: 20px; }
-    .card span, .label {
-      display: inline-flex;
-      margin-bottom: 16px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: var(--soft);
-      color: var(--teal);
-      font-size: 11px;
-      font-weight: 820;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-
-    h2 { max-width: 830px; margin: 0; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; }
-    h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.14; }
-    p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
-
-    .section-title {
-      display: grid;
-      grid-template-columns: minmax(0, .78fr) minmax(280px, .22fr);
-      gap: 30px;
-      align-items: end;
-      margin-bottom: 28px;
-    }
-
-    .comparison { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
-    .comparison > div { padding: 24px; }
-    .comparison > div + div { border-left: 1px solid var(--line); background: #fbfcfd; }
-    .mini-flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
-    .mini-flow span { min-height: 32px; display: inline-flex; align-items: center; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--slate); font-size: 12px; font-weight: 720; }
-
-    .entry-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .42fr); gap: 16px; }
-    .entry-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .entry { min-height: 118px; padding: 20px; display: grid; gap: 8px; align-content: start; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.92); box-shadow: var(--shadow-soft); }
-    .entry strong { color: var(--ink); font-size: 16px; line-height: 1.2; }
-    .entry span { color: var(--muted); font-size: 13px; line-height: 1.42; }
-    .entry-target { padding: 24px; display: grid; align-content: center; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); background: var(--navy); color: #fff; box-shadow: var(--shadow-soft); }
-    .entry-target .label { background: rgba(255,255,255,.12); color: #fff; }
-    .entry-target p { color: rgba(255,255,255,.76); }
-
-    .flow-section { color: #fff; background: var(--navy); }
-    .flow-section h2 { color: #fff; }
-    .flow-section .section-title p { color: rgba(255,255,255,.72); }
-    .flow-board { padding: clamp(18px, 3vw, 28px); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: rgba(255,255,255,.055); }
-    .flow-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: start; margin-bottom: 26px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.16); }
-    .flow-head h3 { color: #fff; font-size: clamp(24px, 3vw, 34px); }
-    .flow-head p { max-width: 760px; color: rgba(255,255,255,.72); font-size: 14px; }
-    .flow-key { min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; color: rgba(255,255,255,.86); font-size: 12px; font-weight: 780; }
-    .stage-track { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
-    .stage-track::before { content: ""; position: absolute; left: 6%; right: 6%; top: 31px; height: 2px; background: rgba(255,255,255,.22); }
-    .stage { position: relative; z-index: 1; min-height: 205px; display: grid; grid-template-rows: auto auto 1fr; gap: 12px; padding: 0 4px; }
-    .stage:not(:last-child)::after { content: ""; position: absolute; top: 31px; right: -9px; width: 10px; height: 10px; border-top: 2px solid rgba(255,255,255,.45); border-right: 2px solid rgba(255,255,255,.45); transform: rotate(45deg); }
-    .num { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 999px; background: #fff; color: var(--navy); font-size: 13px; font-weight: 840; }
-    .stage h3 { color: #fff; font-size: 17px; }
-    .stage p { color: rgba(255,255,255,.7); font-size: 13px; }
-    .branches, .outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-    .branch, .outcome { padding: 16px; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); background: rgba(255,255,255,.06); }
-    .branch h4 { margin: 0 0 12px; color: rgba(255,255,255,.68); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-    .options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-    .options span { min-height: 46px; display: grid; place-items: center; padding: 9px; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); color: rgba(255,255,255,.86); text-align: center; font-size: 12px; font-weight: 720; }
-    .outcome strong { display: block; margin-bottom: 6px; color: #fff; }
-    .outcome span { display: block; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.4; }
-
-    .product { min-height: 330px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-    .product::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--accent); }
-    .motion { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); }
-    .motion strong { display: block; color: var(--ink); font-size: 13px; }
-    .motion span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.42; }
-
-    .call ul, .metric ul, .criteria { display: grid; gap: 8px; margin: 12px 0 16px; padding: 0; list-style: none; }
-    .call li, .metric li, .criteria li { color: var(--muted); font-size: 13px; line-height: 1.35; }
-    .call li::before, .metric li::before, .criteria li::before { content: "• "; color: var(--teal); font-weight: 900; }
-    .output { padding: 13px; border: 1px solid var(--line); border-radius: var(--radius); background: #fbfcfd; color: var(--slate); font-size: 13px; line-height: 1.4; }
-    .note { margin-top: 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--soft); color: var(--slate); font-size: 14px; line-height: 1.45; font-weight: 650; }
-
-    .gates { display: grid; gap: 10px; }
-    .gate { display: grid; grid-template-columns: 54px minmax(150px, .58fr) minmax(0, 1fr) minmax(220px, .82fr); gap: 16px; align-items: start; padding: 16px; }
-    .gate-num { width: 52px; height: 52px; display: grid; place-items: center; border: 1px solid #c5ccd8; border-radius: 999px; color: var(--navy); font-size: 12px; font-weight: 840; }
-    .gate-rule { height: 100%; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: #fbfcfd; }
-    .gate-rule strong { display: block; margin-bottom: 5px; color: var(--slate); font-size: 12px; }
-    .gate-rule span { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; }
-
-    .matrix { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow-soft); }
-    .row { display: grid; grid-template-columns: minmax(170px, .85fr) minmax(170px, .9fr) minmax(280px, 1.35fr) minmax(200px, .9fr); border-top: 1px solid var(--line); }
-    .row:first-child { border-top: 0; }
-    .row.header { background: var(--soft); color: var(--navy); font-size: 11px; font-weight: 840; letter-spacing: .08em; text-transform: uppercase; }
-    .cell { padding: 16px; border-left: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.42; }
-    .cell:first-child { border-left: 0; }
-    .cell strong { display: block; color: var(--ink); font-size: 15px; }
-    .cell em { display: block; margin-top: 4px; color: #8b95a7; font-style: normal; font-size: 12px; }
-
-    .status { display: grid; gap: 8px; margin-top: 12px; }
-    .status span { display: grid; grid-template-columns: 18px 1fr; gap: 8px; color: var(--slate); font-size: 13px; line-height: 1.35; }
-    .status span::before { content: ""; width: 10px; height: 10px; margin-top: 4px; border-radius: 999px; background: rgba(0,143,134,.18); box-shadow: inset 0 0 0 2px var(--teal); }
-
-    .appendix { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; background: #fbfcfd; }
-    details { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; }
-    summary { cursor: pointer; padding: 14px 18px; color: var(--navy); font-weight: 760; }
-    iframe { width: 100%; height: min(78vh, 780px); border: 0; border-top: 1px solid var(--line); background: var(--soft); }
-
-    @media (max-width: 1120px) {
-      .nav { display: none; }
-      .cover-top, .section-title, .entry-layout, .appendix { grid-template-columns: 1fr; }
-      .doc-link { justify-self: start; }
-      .flow-head, .stage-track, .branches, .outcomes { grid-template-columns: 1fr; }
-      .stage-track { gap: 14px; margin-left: 24px; }
-      .stage-track::before { left: -14px; right: auto; top: 32px; bottom: 32px; width: 2px; height: auto; }
-      .stage { min-height: auto; grid-template-columns: 64px 1fr; grid-template-rows: auto auto; column-gap: 14px; padding: 0; }
-      .stage:not(:last-child)::after { top: auto; right: auto; bottom: -12px; left: 26px; transform: rotate(135deg); }
-      .stage p { grid-column: 2; }
-    }
-
-    @media (max-width: 940px) {
-      .cards-3, .comparison, .entry-grid, .products, .calls, .followups, .readiness, .metrics { grid-template-columns: 1fr; }
-      .comparison > div + div { border-left: 0; border-top: 1px solid var(--line); }
-      .options { grid-template-columns: 1fr 1fr; }
-      .gate { grid-template-columns: 54px 1fr; gap: 12px; }
-      .gate > p, .gate .criteria, .gate-rule { grid-column: 2; }
-      .row, .row.header { grid-template-columns: 1fr; }
-      .row.header { display: none; }
-      .cell { border-left: 0; border-top: 1px solid var(--line); }
-      .cell:first-child { border-top: 0; }
-    }
-
-    @media (max-width: 680px) {
-      .section { padding: 46px 16px; }
-      h1 { font-size: clamp(38px, 12vw, 54px); }
-      .section-title { gap: 12px; margin-bottom: 20px; }
-      .section-title h2 { font-size: clamp(28px, 9vw, 38px); }
-      .flow-board { padding: 16px; }
-      .flow-head { gap: 12px; margin-bottom: 18px; padding-bottom: 16px; }
-      .flow-head h3 { font-size: 24px; }
-      .stage-track { gap: 10px; margin: 0; }
-      .stage-track::before, .stage:not(:last-child)::after { display: none; }
-      .stage { grid-template-columns: 42px 1fr; row-gap: 6px; padding: 14px; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); background: rgba(255,255,255,.055); }
-      .num { width: 42px; height: 42px; font-size: 12px; }
-      .stage h3 { align-self: center; font-size: 18px; }
-      .stage p { grid-column: 2; font-size: 13px; }
-      .options { grid-template-columns: 1fr; }
-      .gate { grid-template-columns: 44px 1fr; padding: 14px; }
-      .gate-num { width: 44px; height: 44px; }
-      .label { max-width: 100%; margin-bottom: 10px; font-size: 11px; line-height: 1.15; white-space: normal; }
-      .gate h3 { margin-bottom: 0; font-size: 21px; }
-      .gate > p, .gate .criteria, .gate-rule { grid-column: 1 / -1; }
-      .card, .product, .call, .role, .appendix { padding: 16px; }
-      .appendix .doc-link { width: 100%; }
-      iframe { height: 68vh; }
-    }
-  </style>
-</head>
+  <link rel="stylesheet" href="../styles.css">
+  </head>
 <body>
   <header class="topbar">
     <a class="brand" href="../index.html#dashboard" aria-label="Aryze Commercial Workspace"><img class="brand-logo" src="../assets/aryze-logo-wordmark.png" alt="Aryze"><span><small>Commercial Workspace</small></span></a>
     <nav class="nav">
-      <a href="../index.html#dashboard">Dashboard</a><a href="#top">Overview</a><a href="#change">Handoff Standard</a><a href="#entry">Intake</a><a href="#flow">Readiness Flow</a><a href="#rules">Readiness Rules</a><a href="#ownership">Ownership</a><a href="#readiness">Readiness</a><a href="#measurement">Measurement</a>
+      <a href="../index.html#dashboard">Dashboard</a>
+      <a href="#top">Overview</a>
+      <a href="#packet">Handoff Packet</a>
+      <a href="#flow">Readiness Flow</a>
+      <a href="#gates">Gates</a>
+      <a href="#ownership">Ownership</a>
+      <a href="#sla">SLA</a>
+      <a href="#escalation">Escalation</a>
+      <a href="#measurement">Measurement</a>
     </nav>
   </header>
 
@@ -289,123 +32,171 @@
           <div>
             <p class="eyebrow">Commercial process</p>
             <h1>Sales-to-Onboarding Process</h1>
-            <p class="subtitle">A controlled process from qualified commercial interest to onboarding start.</p>
-            <p class="meta">Aryze commercial flow &middot; Sales to onboarding &middot; 2026</p>
+            <p class="subtitle">From commercial commitment to live operation. Clear context, ownership and readiness at every gate.</p>
+            <p class="meta">Aryze commercial flow &middot; 2026</p>
           </div>
         </div>
-        <p class="copy">The Sales-to-Onboarding Process begins when an opportunity has been qualified and the customer needs a controlled path into onboarding. Its purpose is to make sure Sales, Legal, Compliance, Technical and Onboarding teams share the same context before work starts.</p>
+        <p class="copy">This process begins where the <a href="./sales-strategy.html">Sales Strategy</a> ends, at commercial commitment. Its purpose is to give Sales, Legal, Compliance, Technical and Onboarding the same context before implementation starts, so the customer experiences continuity rather than a restart.</p>
         <div class="cards-3" style="margin-top:28px">
-          <article class="card"><span>What changes</span><h3>Handoff becomes readiness-based.</h3><p>Sales does not pass a customer forward until product path, context, owner, blockers and next milestone are clear.</p></article>
-          <article class="card"><span>Why it matters</span><h3>Onboarding starts with context.</h3><p>The receiving team should not have to rediscover the deal, the use case or the customer's operating constraints.</p></article>
-          <article class="card"><span>What it enables</span><h3>A cleaner implementation start.</h3><p>Commercial fit, KYB, IT, legal, owners, blockers and next milestones become visible before the handoff.</p></article>
+          <article class="card"><span>What changes</span><h3>Readiness-led handoff.</h3><p>Sales does not move a customer forward until product path, KYB status, technical scope, blockers and next milestone are clear.</p></article>
+          <article class="card"><span>Why it matters</span><h3>Context is the deliverable.</h3><p>The receiving team should not rediscover the deal, the use case or the customer's operating constraints.</p></article>
+          <article class="card"><span>What it enables</span><h3>A cleaner start.</h3><p>Commercial fit, KYB, IT, legal and owners become visible before the handoff. Not after.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="change">
+    <section class="section" id="packet">
       <div class="section-inner">
-        <div class="section-title"><h2>Why the handoff needs a standard</h2><p>The risk is that signed or high-intent customers arrive in onboarding without enough context, ownership or readiness to move efficiently.</p></div>
-        <section class="panel comparison">
-          <div><span class="label">Avoid</span><h3>Informal handoff</h3><div class="mini-flow"><span>Loose notes</span><span>Missing owner</span><span>Late KYB</span><span>Unclear blocker</span><span>Restarted discovery</span></div><p>The customer moves forward, but the receiving team inherits ambiguity and has to rebuild context.</p></div>
-          <div><span class="label">Target process</span><h3>Readiness-led handoff</h3><div class="mini-flow"><span>Product path</span><span>KYB status</span><span>IT/legal view</span><span>Owner</span><span>Next milestone</span></div><p>The customer enters onboarding with the minimum context needed to move without avoidable rework.</p></div>
-        </section>
-      </div>
-    </section>
-
-    <section class="section" id="entry">
-      <div class="section-inner">
-        <div class="section-title"><h2>Clear entry points. One readiness standard.</h2><p>This process starts after qualification. It is not a lead-generation model, a sales strategy or a pipeline report. It is the practical path from qualified customer to controlled onboarding start.</p></div>
-        <div class="entry-layout">
-          <div class="entry-grid">
-            <article class="entry"><strong>Qualified opportunity</strong><span>Sales has confirmed product fit, use case and credible customer intent.</span></article>
-            <article class="entry"><strong>Commercial commitment</strong><span>The customer has agreed a concrete next step or implementation conversation.</span></article>
-            <article class="entry"><strong>KYB required</strong><span>Trust work is needed before the customer can move deeper into onboarding.</span></article>
-            <article class="entry"><strong>Technical scope</strong><span>Integration, setup, reporting or operational requirements need clarification.</span></article>
-            <article class="entry"><strong>Legal review</strong><span>Contract, responsibility, licensing or risk questions need to be resolved.</span></article>
-            <article class="entry"><strong>Onboarding candidate</strong><span>The customer is close enough to handoff that context and owners must be locked.</span></article>
-          </div>
-          <aside class="entry-target"><span class="label">Routing point</span><h3>Handoff packet</h3><p>The handoff packet turns commercial context into a structured onboarding start: product path, use case, owner, blocker list and next milestone.</p></aside>
+        <div class="section-title"><h2>The handoff packet.</h2><p>Every handoff produces this packet. Same shape for every product. Different content. If a packet cannot be filled in, the deal is not ready to move.</p></div>
+        <div class="matrix">
+          <div class="row header"><div class="cell">Field</div><div class="cell">Pay by Bank</div><div class="cell">Stablecoin Factory</div><div class="cell">Digital Cash</div></div>
+          <div class="row"><div class="cell"><strong>Product path</strong></div><div class="cell">Pay by Bank, target markets confirmed</div><div class="cell">Own Programme / Partner-Led / White-Label</div><div class="cell">Digital Cash, phase-1 scope identified</div></div>
+          <div class="row"><div class="cell"><strong>Use case</strong></div><div class="cell">Deposits, top-ups, FX swap</div><div class="cell">Stablecoin or tokenised asset, one sentence</div><div class="cell">Settlement, treasury, liquidity, issuance</div></div>
+          <div class="row"><div class="cell"><strong>Decision owner</strong></div><div class="cell">Payments Ops Lead, named</div><div class="cell">Founder, CTO or Head of Product, named</div><div class="cell">Executive sponsor, named (Board-adjacent)</div></div>
+          <div class="row"><div class="cell"><strong>Commercial scope</strong></div><div class="cell">Volume, AOV, blended fee, savings model</div><div class="cell">Motion-fit pricing, contract length</div><div class="cell">Capex/opex framing, multi-year structure</div></div>
+          <div class="row"><div class="cell"><strong>KYB status</strong></div><div class="cell">Started / docs in / approved</div><div class="cell">Customer issuer-licence confirmed</div><div class="cell">Institution licence confirmed; MLRO identified</div></div>
+          <div class="row"><div class="cell"><strong>Technical scope</strong></div><div class="cell">Current PSP/stack, integration points, sandbox tested</div><div class="cell">Stack, motion, sandbox progress, networks</div><div class="cell">Architecture map vs existing stack, treasury hooks</div></div>
+          <div class="row"><div class="cell"><strong>Legal blockers</strong></div><div class="cell">Contract template stage; merchant agreement</div><div class="cell">Contract scope; IP and data ownership; exit clauses</div><div class="cell">Framework agreement; indemnification; vendor DD pack</div></div>
+          <div class="row"><div class="cell"><strong>Next milestone</strong></div><div class="cell">Live merchant date, with KPI</div><div class="cell">First sandbox-to-test-net deployment</div><div class="cell">Phase-1 scope, workshop scheduled</div></div>
+          <div class="row"><div class="cell"><strong>Owner + date</strong></div><div class="cell">Named owner, dated next step</div><div class="cell">Named owner, dated next step</div><div class="cell">Named owner per workstream, dated review</div></div>
         </div>
       </div>
     </section>
 
     <section class="section flow-section" id="flow">
       <div class="section-inner">
-        <div class="section-title"><h2>The onboarding readiness flow</h2><p>A simple operating map for moving qualified opportunities into onboarding readiness while leaving room for focused follow-up where the customer needs more clarity.</p></div>
+        <div class="section-title"><h2>Readiness flow.</h2><p>Six stages from commercial commitment to live. Two decision points. One handoff standard.</p></div>
         <div class="flow-board">
-          <div class="flow-head"><div><h3>Six stages. Two decision points. One handoff standard.</h3><p>The flow is intentionally simple: confirm the opportunity, document context, start trust work, align implementation stakeholders, then complete the handoff only when readiness is clear.</p></div><span class="flow-key">Readiness map</span></div>
+          <div class="flow-head"><div><h3>Confirm. Document. Verify. Hand off.</h3><p>Trust work runs in parallel with implementation alignment. Handoff happens when readiness is clear, not when momentum is loud.</p></div><span class="flow-key">Readiness</span></div>
           <div class="stage-track">
-            <article class="stage"><span class="num">01</span><h3>Qualified opportunity</h3><p>Sales confirms product fit, customer intent and a realistic route toward implementation.</p></article>
-            <article class="stage"><span class="num">02</span><h3>Context captured</h3><p>Use case, stakeholders, commercial scope and customer expectations are documented.</p></article>
-            <article class="stage"><span class="num">03</span><h3>Readiness review</h3><p>Sales checks whether KYB, legal, technical or operational work is needed before handoff.</p></article>
-            <article class="stage"><span class="num">04</span><h3>KYB + decision</h3><p>Trust work starts when fit and intent are clear enough to justify deeper review.</p></article>
-            <article class="stage"><span class="num">05</span><h3>IT/legal alignment</h3><p>Implementation requirements, blockers and responsibilities are clarified before onboarding.</p></article>
-            <article class="stage"><span class="num">06</span><h3>Handoff + start</h3><p>Move to onboarding when scope, owners, blockers and next milestone are clear.</p></article>
+            <article class="stage"><span class="num">01</span><h3>Commercial commitment</h3><p>Sales confirms fit, intent and a concrete next step.</p></article>
+            <article class="stage"><span class="num">02</span><h3>Context captured</h3><p>Use case, stakeholders, commercial scope documented in the packet.</p></article>
+            <article class="stage"><span class="num">03</span><h3>Readiness review</h3><p>What KYB, legal, technical or operational work is needed.</p></article>
+            <article class="stage"><span class="num">04</span><h3>KYB + decision</h3><p>Trust work starts when fit and intent justify the deeper review.</p></article>
+            <article class="stage"><span class="num">05</span><h3>IT + legal alignment</h3><p>Implementation requirements, blockers and responsibilities clarified.</p></article>
+            <article class="stage"><span class="num">06</span><h3>Handoff + start</h3><p>Onboarding starts when scope, owners, blockers and next milestone are clear.</p></article>
           </div>
-          <div class="branches">
-            <div class="branch"><h4>After readiness review</h4><div class="options"><span>Proceed to KYB</span><span>Follow-up needed</span><span>Route product path</span><span>Pause or disqualify</span></div></div>
-            <div class="branch"><h4>After handoff review</h4><div class="options"><span>Ready for onboarding</span><span>Legal follow-up</span><span>Technical follow-up</span><span>Commercial approval</span></div></div>
-          </div>
-          <div class="outcomes"><div class="outcome"><strong>Flexible where needed</strong><span>Follow-up meetings are expected when technical, legal, commercial, or stakeholder clarity is needed.</span></div><div class="outcome"><strong>Strict at handoff</strong><span>Onboarding starts only when product path, KYB status, requirements, blockers, owners, and next milestone are clear.</span></div></div>
+          <div class="outcomes"><div class="outcome"><strong>Flexible</strong><span>Follow-ups are expected when technical, legal, commercial or stakeholder clarity is needed.</span></div><div class="outcome"><strong>Strict at handoff</strong><span>Onboarding starts only when the packet is complete and the readiness gates have passed.</span></div></div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="products">
+    <section class="section" id="gates">
       <div class="section-inner">
-        <div class="section-title"><h2>Same handoff standard. Three implementation paths.</h2><p>The readiness standard stays consistent, but each product creates different onboarding questions, blockers and implementation requirements.</p></div>
+        <div class="section-title"><h2>Readiness gates by product.</h2><p>The packet stays constant. The gates differ.</p></div>
         <div class="products">
-          <article class="product" style="--accent:var(--blue)"><span class="label">Merchant payments</span><h3>Pay by Bank</h3><p>Fastest implementation path. Focus on payment flow, settlement, reconciliation, operational ownership and merchant launch readiness.</p><div class="motion"><strong>Handoff focus</strong><span>Commercial scope &middot; payment flow &middot; launch owner</span></div></article>
-          <article class="product" style="--accent:var(--teal)"><span class="label">Self-serve deployment</span><h3>Stablecoin Factory</h3><p>Product-led implementation path. Focus on use case, setup depth, technical readiness and whether the customer needs simple deployment or deeper support.</p><div class="motion"><strong>Handoff focus</strong><span>Use case &middot; setup requirements &middot; technical owner</span></div></article>
-          <article class="product" style="--accent:var(--gold)"><span class="label">Institutional infrastructure</span><h3>Digital Cash</h3><p>Enterprise implementation path. Focus on governance, licence position, compliance, treasury, infrastructure and operating model readiness.</p><div class="motion"><strong>Handoff focus</strong><span>Governance &middot; legal review &middot; technical scope</span></div></article>
+          <article class="product" style="--accent:var(--blue)">
+            <span class="label">Pay by Bank</span>
+            <h3>Four-step onboarding.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>1. Map payment flow.</strong> Volume, markets, current friction, target KPI.</li>
+              <li><strong>2. KYB.</strong> Company verification, documentation, approvals. The gate that can stall everything else.</li>
+              <li><strong>3. Integration and test.</strong> Callbacks, reporting, sandbox journeys, theming.</li>
+              <li><strong>4. Go live.</strong> Monitoring, support, handover to account management.</li>
+            </ul>
+          </article>
+          <article class="product" style="--accent:var(--teal)">
+            <span class="label">Stablecoin Factory</span>
+            <h3>Three gates before scoping.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Technical readiness.</strong> Customer has a technical team able to use sandbox and docs.</li>
+              <li><strong>Issuer model.</strong> Customer (or parent/partner) holds the licence. Aryze does not deliver one.</li>
+              <li><strong>Motion fit.</strong> Own Programme / Partner-Led / White-Label confirmed before commercial scoping.</li>
+            </ul>
+          </article>
+          <article class="product" style="--accent:var(--gold)">
+            <span class="label">Digital Cash</span>
+            <h3>Three institutional gates.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Licence.</strong> Institution already licensed for digital cash or related activity.</li>
+              <li><strong>Executive sponsor.</strong> Board-adjacent champion identified before deal progression.</li>
+              <li><strong>Multi-stakeholder capacity.</strong> Treasury, legal, compliance, risk and tech can engage in the same room.</li>
+            </ul>
+          </article>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="calls">
-      <div class="section-inner">
-        <div class="section-title"><h2>Readiness review is not a repeat of sales discovery.</h2><p>The process should preserve commercial context and add the legal, compliance and technical clarity needed for implementation.</p></div>
-        <div class="calls">
-          <article class="call"><h3>Commercial readiness review</h3><p>Purpose: Confirm that Sales has enough context for a controlled handoff.</p><ul><li>Confirm the product path</li><li>Document use case and scope</li><li>Identify decision owner and stakeholders</li><li>Capture commercial commitments</li><li>Confirm urgency and next milestone</li><li>Decide whether KYB should start</li></ul><div class="output"><strong>Output:</strong> Fit, owner, next step and readiness gaps are clear.</div></article>
-          <article class="call"><h3>Implementation readiness review</h3><p>Purpose: Move from commercial commitment to onboarding clarity.</p><ul><li>Bring IT, legal, compliance and operations into the same room</li><li>Review integration requirements</li><li>Review KYB status</li><li>Clarify legal and commercial blockers</li><li>Confirm responsibilities</li><li>Prepare onboarding handoff</li></ul><div class="output"><strong>Output:</strong> Requirements, blockers, owners and implementation path are clear.</div></article>
-        </div>
-        <p class="note">If more alignment is needed, a follow-up meeting is added without breaking the process.</p>
-      </div>
-    </section>
-
-    <section class="section" id="rules">
-      <div class="section-inner">
-        <div class="section-title"><h2>Onboarding Readiness Rules</h2><p>These rules define what must be clear before a qualified opportunity becomes an onboarding case, when KYB starts, and when IT or legal should be involved.</p></div>
-        <div class="gates">
-          <article class="gate"><span class="gate-num">01</span><div><span class="label">Commercial context</span><h3>Qualified opportunity</h3></div><p>The customer has a real problem Aryze can solve, a relevant product path, enough intent to continue, and a realistic route toward implementation.</p><div class="gate-rule"><strong>Operating rule</strong><span>Onboarding work does not start from general interest. Sales must confirm product fit and customer intent first.</span></div></article>
-          <article class="gate"><span class="gate-num">02</span><div><span class="label">Known scope</span><h3>Handoff packet</h3></div><div><p>The opportunity has enough documented context for another team to understand the customer without restarting discovery.</p><ul class="criteria"><li>Product path confirmed</li><li>Use case documented</li><li>Decision owner identified</li><li>Next milestone agreed</li></ul></div><div class="gate-rule"><strong>Operating rule</strong><span>If the receiving team cannot understand the case from the handoff packet, the handoff is not ready.</span></div></article>
-          <article class="gate"><span class="gate-num">03</span><div><span class="label">Readiness check</span><h3>Implementation path</h3></div><div><p>The team understands what must happen before onboarding can begin without avoidable friction.</p><ul class="criteria"><li>Commercial scope</li><li>KYB status</li><li>Technical requirements</li><li>Legal blockers</li><li>Operational owner</li></ul></div><div class="gate-rule"><strong>Operating rule</strong><span>Unknown blockers should be made visible before onboarding starts, not discovered after handoff.</span></div></article>
-          <article class="gate"><span class="gate-num">04</span><div><span class="label">Trust layer starts</span><h3>KYB-ready</h3></div><p>Product fit, customer intent, and the need to validate the company are clear enough before moving deeper into onboarding or implementation planning.</p><div class="gate-rule"><strong>KYB trigger</strong><span>KYB starts when fit and intent are clear enough that continuing without compliance validation would create risk or delay.</span></div></article>
-          <article class="gate"><span class="gate-num">05</span><div><span class="label">Operational questions begin</span><h3>Technical and legal review</h3></div><div><p>The customer has moved beyond commercial interest and needs implementation, contract, integration, compliance, or operational questions answered.</p><ul class="criteria"><li>Integration or API questions</li><li>Contract or responsibility questions</li><li>KYB document questions</li><li>Operational setup requirements</li></ul></div><div class="gate-rule"><strong>Operating rule</strong><span>IT and legal join when the opportunity becomes operational, not when the deal is already stuck.</span></div></article>
-          <article class="gate"><span class="gate-num">06</span><div><span class="label">Structured handoff</span><h3>Onboarding-ready</h3></div><p>The product path, use case, owners, KYB status, technical requirements, legal blockers, and next milestone are clear enough for onboarding to begin.</p><div class="gate-rule"><strong>Operating rule</strong><span>Onboarding should not start from zero. Sales must provide context, decisions, blockers, owners, and next steps.</span></div></article>
-        </div>
+        <p class="note">A single review meeting is enough when context is clear. Two meetings (commercial + implementation) when KYB, technical or legal questions need a forum. More than two means the deal is not ready for handoff.</p>
       </div>
     </section>
 
     <section class="section" id="ownership">
       <div class="section-inner">
-        <div class="section-title"><h2>Ownership model</h2><p>Ownership stays simple: each role enters at the right point, handles its part of the readiness process, and protects the handoff into onboarding.</p></div>
+        <div class="section-title"><h2>Ownership model.</h2><p>Each role enters at the right point and protects the handoff into onboarding.</p></div>
         <div class="matrix">
-          <div class="row header"><div class="cell">Role</div><div class="cell">Enters when</div><div class="cell">Owns</div><div class="cell">Boundary</div></div>
-          <div class="row"><div class="cell"><strong>Commercial team</strong><em>Qualification and handoff packet</em></div><div class="cell">Qualified opportunity or close to handoff.</div><div class="cell">Confirm product path, prepare the handoff packet, trigger KYB when relevant, coordinate readiness gaps, and document the next milestone.</div><div class="cell">Do not start onboarding without clear fit, context, owners, blockers, and next milestone.</div></div>
-          <div class="row"><div class="cell"><strong>Legal</strong><em>Legal review and contract clarity</em></div><div class="cell">Legal or contract questions appear, usually around Call 2.</div><div class="cell">Review legal questions, clarify contract points, identify legal blockers, support Call 2, and clarify responsibilities before onboarding.</div><div class="cell">Enter too late after legal blockers have already slowed the deal.</div></div>
-          <div class="row"><div class="cell"><strong>IT / Technical</strong><em>Technical feasibility and requirements</em></div><div class="cell">Integration, setup, reporting, API, or operational questions appear.</div><div class="cell">Review technical feasibility, answer setup questions, identify technical blockers, support Call 2, and define technical requirements.</div><div class="cell">Start implementation without defined scope and requirements.</div></div>
-          <div class="row"><div class="cell"><strong>Account management / onboarding</strong><em>Continuity and onboarding coordination</em></div><div class="cell">Onboarding-ready or close to handoff.</div><div class="cell">Coordinate onboarding continuity, track implementation readiness, maintain relationship continuity, and support ongoing account management.</div><div class="cell">Restart discovery from zero after sales has already created context.</div></div>
+          <div class="row header"><div class="cell">Role</div><div class="cell">Enters when</div><div class="cell">Owns</div></div>
+          <div class="row"><div class="cell"><strong>Commercial</strong></div><div class="cell">Qualified opportunity through to handoff.</div><div class="cell">Product path, handoff packet, KYB trigger, readiness gaps, next milestone.</div></div>
+          <div class="row"><div class="cell"><strong>Compliance / MLRO</strong></div><div class="cell">KYB triggered (PbB), regulatory pre-read (Digital Cash), issuer-model verification (Factory).</div><div class="cell">KYB checks, licence verification, AML/sanctions screening, regulator-facing material.</div></div>
+          <div class="row"><div class="cell"><strong>Legal</strong></div><div class="cell">Legal or contract questions appear, usually around the implementation review.</div><div class="cell">Contract review, legal blockers, responsibilities before onboarding.</div></div>
+          <div class="row"><div class="cell"><strong>IT / Technical</strong></div><div class="cell">Integration, setup or operational questions appear.</div><div class="cell">Technical feasibility, setup answers, blockers, requirements.</div></div>
+          <div class="row"><div class="cell"><strong>Account management</strong></div><div class="cell">Onboarding-ready or close to handoff.</div><div class="cell">Continuity, implementation readiness, ongoing relationship.</div></div>
         </div>
-        <p class="note">Sales owns the handoff packet. Onboarding should receive context, decisions, blockers, owners and next steps before work starts.</p>
       </div>
     </section>
 
-    <section class="section" id="follow-up"><div class="section-inner"><div class="section-title"><h2>Follow-up meetings are part of the process, not a failure of the process.</h2><p>Some opportunities need extra clarification before onboarding. The model allows for this without losing momentum.</p></div><div class="followups"><article class="card"><h3>Technical follow-up</h3><p>Used when integration details, API questions, reporting, or operational flows need more review.</p></article><article class="card"><h3>Legal follow-up</h3><p>Used when contract terms, licensing assumptions, KYB documents, or responsibilities need more clarity.</p></article><article class="card"><h3>Commercial follow-up</h3><p>Used when pricing, scope, internal approvals, or decision process need more alignment.</p></article><article class="card"><h3>Stakeholder follow-up</h3><p>Used when additional customer stakeholders need to understand the product, risk, or onboarding path.</p></article></div></div></section>
+    <section class="section" id="sla">
+      <div class="section-inner">
+        <div class="section-title"><h2>Time targets.</h2><p>Internal expectations, not customer promises. A slip past target without a documented reason escalates.</p></div>
+        <div class="products">
+          <article class="product" style="--accent:var(--blue)">
+            <span class="label">Pay by Bank</span>
+            <h3>6&ndash;12 weeks SMB.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Commitment &rarr; KYB started:</strong> 5 working days.</li>
+              <li><strong>KYB started &rarr; approved:</strong> 1&ndash;3 weeks (customer-doc dependent).</li>
+              <li><strong>KYB approved &rarr; integration started:</strong> 5 working days.</li>
+              <li><strong>Integration &rarr; live merchant:</strong> 2&ndash;6 weeks.</li>
+            </ul>
+          </article>
+          <article class="product" style="--accent:var(--teal)">
+            <span class="label">Stablecoin Factory</span>
+            <h3>Weeks to a quarter.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Commitment &rarr; sandbox-to-test-net:</strong> 2 weeks.</li>
+              <li><strong>Sandbox &rarr; first deployment:</strong> 2&ndash;6 weeks.</li>
+              <li><strong>Own Programme cycle:</strong> weeks to a quarter.</li>
+              <li><strong>Partner-Led / White-Label:</strong> one to two quarters / two quarters+.</li>
+            </ul>
+          </article>
+          <article class="product" style="--accent:var(--gold)">
+            <span class="label">Digital Cash</span>
+            <h3>6&ndash;18 months.</h3>
+            <ul class="criteria" style="margin-top:14px">
+              <li><strong>Commitment &rarr; first workshop:</strong> 3 weeks.</li>
+              <li><strong>Workshop &rarr; architecture:</strong> 4&ndash;6 weeks.</li>
+              <li><strong>Architecture &rarr; legal / risk / procurement:</strong> 2&ndash;6 months.</li>
+              <li><strong>Phase-1 deployment:</strong> 4&ndash;6 months on narrow scope.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    <section class="section" id="readiness"><div class="section-inner"><div class="section-title"><h2>What must be true before onboarding starts</h2><p>Onboarding should begin with context, not discovery from zero. Before handoff, the core commercial, compliance, technical, and legal requirements should be clear.</p></div><div class="readiness"><article class="card"><h3>Commercial readiness</h3><div class="status"><span>Product path confirmed</span><span>Use case understood</span><span>Customer owner identified</span><span>Decision process known</span><span>Commercial scope clear</span></div></article><article class="card"><h3>Compliance readiness</h3><div class="status"><span>KYB started or completed</span><span>Required documents identified</span><span>Legal blockers known</span><span>Responsibilities clarified</span></div></article><article class="card"><h3>Technical readiness</h3><div class="status"><span>IT requirements mapped</span><span>Integration needs identified</span><span>Operational flows reviewed</span><span>Technical blockers known</span></div></article><article class="card"><h3>Handoff readiness</h3><div class="status"><span>Onboarding owner assigned</span><span>Next milestone agreed</span><span>Context documented</span><span>No restart from zero</span></div></article></div></div></section>
+    <section class="section" id="escalation">
+      <div class="section-inner">
+        <div class="section-title"><h2>Escalation paths.</h2><p>Escalation is part of the process. A stall becomes harder to resolve the longer it sits.</p></div>
+        <div class="cards-3">
+          <article class="card"><span>KYB stalled</span><h3>Commercial + Compliance</h3><p>Triggered when KYB docs are incomplete after 2 weeks. Joint review within 5 working days.</p></article>
+          <article class="card"><span>Technical stalled</span><h3>Technical lead + Commercial</h3><p>Triggered when integration questions remain open after the implementation review. Joint review within 5 working days.</p></article>
+          <article class="card"><span>Legal stalled</span><h3>Legal + Executive sponsor</h3><p>Triggered when contract review extends beyond target time, or when indemnification, IP or exit becomes deal-critical. For Digital Cash, the executive sponsor engages personally.</p></article>
+        </div>
+        <div class="cards-3" style="margin-top:14px">
+          <article class="card"><span>Customer quiet</span><h3>Commercial re-engagement</h3><p>10+ working days of silence triggers a structured re-engagement attempt before flagging the deal at-risk.</p></article>
+          <article class="card"><span>Scope creep</span><h3>Commercial leadership</h3><p>Material scope beyond original commitment routes to commercial leadership before anyone agrees. Especially relevant for Digital Cash multi-year framework agreements.</p></article>
+          <article class="card"><span>Aryze capability gap</span><h3>Product + Commercial leadership</h3><p>An Aryze-side blocker (RWA, sandbox access, undocumented limit) routes to product immediately. Never promise the capability to the customer in the meantime.</p></article>
+        </div>
+      </div>
+    </section>
 
-    <section class="section" id="measurement"><div class="section-inner"><div class="section-title"><h2>How we prove the process works</h2><p>The process should be measured on handoff quality, speed to readiness and whether onboarding starts with fewer avoidable blockers.</p></div><div class="metrics"><article class="card metric"><h3>Conversion</h3><ul><li>Qualified opportunity to readiness review</li><li>Readiness review to KYB started</li><li>KYB to onboarding-ready</li><li>Onboarding-ready to implementation start</li></ul></article><article class="card metric"><h3>Speed</h3><ul><li>Time from qualification to readiness review</li><li>Time from readiness review to KYB start</li><li>Time from implementation review to onboarding handoff</li><li>Time stuck with unresolved blockers</li></ul></article><article class="card metric"><h3>Quality</h3><ul><li>Product path documented</li><li>Stakeholders identified before handoff</li><li>KYB and legal blockers known</li><li>Technical requirements mapped</li><li>Onboarding starts without re-discovery</li></ul></article><article class="card metric"><h3>Decision question</h3><p>Does each handoff give onboarding enough context, ownership and readiness to move without avoidable rework?</p></article></div></div></section>
+    <section class="section" id="measurement">
+      <div class="section-inner">
+        <div class="section-title"><h2>How we measure handoff quality.</h2><p>The process is judged on whether onboarding starts with context, not whether it starts fast.</p></div>
+        <div class="cards-3">
+          <article class="card metric"><h3>Conversion</h3><ul><li>Commitment &rarr; readiness review</li><li>Readiness review &rarr; KYB started</li><li>KYB &rarr; onboarding-ready</li><li>Onboarding-ready &rarr; implementation start</li></ul></article>
+          <article class="card metric"><h3>Speed</h3><ul><li>Commitment to readiness review</li><li>Readiness review to KYB start</li><li>Implementation review to handoff</li><li>Time stuck with unresolved blockers</li></ul></article>
+          <article class="card metric"><h3>Quality</h3><ul><li>Product path documented</li><li>Stakeholders identified before handoff</li><li>KYB and legal blockers known</li><li>Onboarding starts without re-discovery</li></ul></article>
+        </div>
+        <p class="note">The decision question: does each handoff give onboarding enough context, ownership and readiness to move without avoidable rework?</p>
+      </div>
+    </section>
 
   </main>
 </body>

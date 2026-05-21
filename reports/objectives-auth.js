@@ -153,7 +153,7 @@
       backdrop.innerHTML = `
         <div class="objectives-auth-card">
           <img src="../assets/aryze-logo-wordmark.png" alt="Aryze" />
-          <h1>ARYZE 2026 Objectives</h1>
+          <h1>Aryze 2026 Objectives</h1>
           <p>Enter the objectives code to open this internal page.</p>
           <form class="objectives-auth-form">
             <label>
